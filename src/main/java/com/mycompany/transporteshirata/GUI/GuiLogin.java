@@ -163,7 +163,10 @@ public class GuiLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public class nombreConductor {
 
+        public static String nombreConductorActual = null;
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String itemSeleccionado = cmb_conductor.getSelectedItem().toString();
@@ -173,10 +176,11 @@ public class GuiLogin extends javax.swing.JFrame {
 
         if (loginDao.validarCredenciales(rutSeleccionado, contrasenaIngresada)) {
             JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-
+            nombreConductor.nombreConductorActual = itemSeleccionado.split(" - ")[1];
             this.setVisible(false);
-            Principal p = new Principal();
+            PrincipalConductor p = new PrincipalConductor();
             p.setVisible(true);
+
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
         }

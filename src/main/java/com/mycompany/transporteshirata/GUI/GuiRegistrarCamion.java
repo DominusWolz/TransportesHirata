@@ -392,7 +392,6 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         c_encontrado.setAnio(Integer.parseInt(this.txt_anio.getText()));
         c_encontrado.setKilometrajeActual(Integer.parseInt(this.txt_kilometraje.getText()));
 
-        // SE VALIDA QUE NO ESTÉ VACÍO ANTES DE PARSEAR
         if (!this.txt_id.getText().trim().isEmpty()) {
             c_encontrado.setIdCamion(Integer.parseInt(this.txt_id.getText()));
         }
