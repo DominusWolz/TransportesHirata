@@ -107,6 +107,7 @@ public class ConductoDao {
             while (rs.next()) {
                 Conductor c = new Conductor();
                 c.setRut(rs.getString("rut"));
+                c.setNombre(rs.getString("nombre"));
                 lista.add(c);
             }
         } catch (SQLException e) {

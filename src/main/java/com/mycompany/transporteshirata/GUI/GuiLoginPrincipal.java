@@ -109,8 +109,9 @@ public class GuiLoginPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bt1ActionPerformed
 
     private void bt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt2ActionPerformed
-            ContraseñaAdmin p = new ContraseñaAdmin();
-            p.setVisible(true);
+        this.setVisible(false);
+        ContraseñaAdmin p = new ContraseñaAdmin();
+        p.setVisible(true);
     }//GEN-LAST:event_bt2ActionPerformed
 
     /**

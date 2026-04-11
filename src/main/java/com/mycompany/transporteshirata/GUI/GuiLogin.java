@@ -5,15 +5,17 @@
 package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.ConductoDao;
+import com.mycompany.transporteshirata.Datos.LoginDao;
 import com.mycompany.transporteshirata.Logica.Conductor;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author danie
  */
 public class GuiLogin extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiLogin.class.getName());
 
     /**
@@ -26,14 +28,16 @@ public class GuiLogin extends javax.swing.JFrame {
         this.setTitle("     \n     Login - Transportes Hirata     \n     ");
         cargarCbm();
     }
+
     private void cargarCbm() {
         List<Conductor> lista = cd.listarConductoresCbm();
         cmb_conductor.removeAllItems();
         cmb_conductor.addItem("-- Seleccione un conductor --");
         for (Conductor c : lista) {
-            cmb_conductor.addItem(c.getRut());
+            cmb_conductor.addItem(c.getRut() + " - " + c.getNombre());
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +57,7 @@ public class GuiLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         cmb_conductor = new javax.swing.JComboBox<>();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_pass = new javax.swing.JPasswordField();
 
         jLabel1.setText("jLabel1");
 
@@ -89,7 +93,7 @@ public class GuiLogin extends javax.swing.JFrame {
 
         cmb_conductor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_pass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,7 +102,7 @@ public class GuiLogin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmb_conductor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1)
+                    .addComponent(txt_pass)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
@@ -117,7 +121,7 @@ public class GuiLogin extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -159,14 +163,23 @@ public class GuiLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
 
-//!!!! cambiar el button por una funcion y que del boton mande a la funcion , o al verificar el login mande a la funcion de abrir la aplicacion
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
-        Principal p = new Principal();
-        p.setVisible(true);
+        String itemSeleccionado = cmb_conductor.getSelectedItem().toString();
+        String rutSeleccionado = itemSeleccionado.split(" - ")[0];
+        String contrasenaIngresada = txt_pass.getText();
+        LoginDao loginDao = new LoginDao();
+
+        if (loginDao.validarCredenciales(rutSeleccionado, contrasenaIngresada)) {
+            JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+
+            this.setVisible(false);
+            Principal p = new Principal();
+            p.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -204,7 +217,7 @@ public class GuiLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txt_pass;
     // End of variables declaration//GEN-END:variables
 }
