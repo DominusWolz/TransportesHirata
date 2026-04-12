@@ -17,11 +17,11 @@ public class Camion {
     private int kilometrajeActual;
     private Conductor conductor;
 
-    // Constructor vacío pa recibir las weas de la base de datos
+   
     public Camion() {
     }
 
-    // Constructor completo pa mandar las weas a la base de datos
+    
     public Camion(int idCamion, String patente, String marca, String modelo, int anio, int kilometrajeActual, Conductor conductor) {
         this.idCamion = idCamion;
         this.patente = patente;
@@ -32,7 +32,7 @@ public class Camion {
         this.conductor = conductor;
     }
 
-    // Getters
+   
     public int getIdCamion() { 
         return idCamion; 
     }
@@ -55,7 +55,7 @@ public class Camion {
         return conductor; 
     }
 
-    // Setters
+    
     public void setIdCamion(int idCamion) { 
         this.idCamion = idCamion; 
     }
@@ -78,7 +78,7 @@ public class Camion {
         this.conductor = conductor; 
     }
 
-    // toString para los ComboBox
+   
     @Override
     public String toString() {
         return patente + " (" + marca + " " + modelo + ")";

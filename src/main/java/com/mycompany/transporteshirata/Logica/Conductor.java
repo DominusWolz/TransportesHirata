@@ -30,7 +30,7 @@ public class Conductor {
         this.telefono = telefono;
     }
 
-    // lo Getters
+   
     public int getIdConductor() {
         return idConductor; 
     }
@@ -50,7 +50,7 @@ public class Conductor {
         return clave; }
     
 
-    // los Setters :)
+    
     public void setIdConductor(int idConductor) {
         this.idConductor = idConductor;
     }
@@ -68,7 +68,7 @@ public class Conductor {
     }
     public void setClave(String clave) {
         this.clave = clave; }
-    // toString pa mostrar la wea en los ComboBox   wea = cosa/datos
+    
     @Override
     public String toString() {
         return rut + " - " + nombre;

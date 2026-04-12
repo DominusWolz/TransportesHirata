@@ -33,7 +33,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         List<Mantenimiento> lista = mDao.listarMantenimientos();
 
         for (Mantenimiento m : lista) {
-            // Filtro de búsqueda (Ignora mayúsculas/minúsculas)
+            
             if (filtroPatente == null || filtroPatente.isEmpty()
                     || m.getCamion().getPatente().toLowerCase().contains(filtroPatente.toLowerCase())) {
 
@@ -285,7 +285,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
             return;
         }
         try {
-            // Reconstruimos el objeto Mantenimiento solo con los datos editables
+            
             Mantenimiento m = new Mantenimiento();
             m.setIdMantenimiento(Integer.parseInt(txt_id.getText()));
             m.setFecha(LocalDate.parse(txt_fecha.getText()));
@@ -293,11 +293,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
             m.setDescripcion(txt_descripcion.getText());
             m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
 
-            // Nota: Para este método (modificarMantenimiento) el DAO de tu compañero exige el idCamion.
-            // Para no complicarlo, como la patente no se edita aquí, asumiremos que si editaste el historial
-            // fue solo para corregir un error de tipeo en la fecha o descripción.
-            // Tendremos que buscar el idCamion usando el DAO o pasarlo.
-            // *Para simplificar en este prototipo, vamos a requerir un pequeño ajuste en tu DAO* // *Te lo explico abajo*
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato.");
         }
@@ -311,7 +307,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         MantenimientoDao mDao = new MantenimientoDao();
         if (mDao.modificarDetallesMantenimiento(m)) {
             JOptionPane.showMessageDialog(this, "✅ Registro actualizado correctamente.");
-            cargarTabla(txt_buscar.getText()); // Recarga manteniendo el filtro actual
+            cargarTabla(txt_buscar.getText()); 
             limpiarCajas();
         }
     }//GEN-LAST:event_bt_editarActionPerformed

@@ -16,11 +16,11 @@ public class Mantenimiento {
     private int kilometrajeMantenimiento; // Km que tiene el camión el día del mantenimiento
     private Camion camion;
 
-    // Constructor vacío
+
     public Mantenimiento() {
     }
 
-    // Constructor completo
+
     public Mantenimiento(int idMantenimiento, LocalDate fecha, String tipo, String descripcion, int kilometrajeMantenimiento, Camion camion) {
         this.idMantenimiento = idMantenimiento;
         this.fecha = fecha;
@@ -30,7 +30,7 @@ public class Mantenimiento {
         this.camion = camion;
     }
 
-    // Getters
+
     public int getIdMantenimiento() { 
         return idMantenimiento;
     }
@@ -50,7 +50,7 @@ public class Mantenimiento {
         return camion; 
     }
 
-    // Setters
+
     public void setIdMantenimiento(int idMantenimiento) {
         this.idMantenimiento = idMantenimiento; 
     }

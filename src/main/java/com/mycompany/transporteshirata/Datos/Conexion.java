@@ -17,7 +17,7 @@ public class Conexion {
     
     // cambia la wea a tu cuenta
     private static final String USUARIO = "root";
-    private static final String CONTRASEÑA = "Dieguin100416@"; 
+    private static final String CONTRASEÑA = "contraseña123"; 
 
     public static Connection getConexion() {
         try {
