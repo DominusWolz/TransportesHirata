@@ -6,7 +6,9 @@ package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.CamionDao;
 import com.mycompany.transporteshirata.Datos.ConductoDao;
+import com.mycompany.transporteshirata.Datos.MantenimientoDao;
 import com.mycompany.transporteshirata.Logica.Camion;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author danie
  */
 public class GuiKilometraje extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuiKilometraje.class.getName());
 
     /**
@@ -24,6 +26,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
     }
+
     public void cargarTabla() {
         String col[] = {"id", "Patente", "Kilometraje"};
 
@@ -32,8 +35,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
             Object[] objs = {
                 c.getIdCamion(),
                 c.getPatente(),
-                c.getKilometrajeActual(),
-            };
+                c.getKilometrajeActual(),};
             tableModel.addRow(objs);
         }
         tbl_camion.setModel(tableModel);
@@ -55,8 +57,9 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txt_km_hoy = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        bt_registrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,10 +101,17 @@ public class GuiKilometraje extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_km_hoy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("km.");
+
+        bt_registrar.setText("Registrar");
+        bt_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_registrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,9 +128,11 @@ public class GuiKilometraje extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                    .addComponent(txt_km_hoy, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
+                .addGap(66, 66, 66)
+                .addComponent(bt_registrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,13 +146,55 @@ public class GuiKilometraje extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(txt_km_hoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(bt_registrar))
                 .addGap(0, 58, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bt_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrarActionPerformed
+        int fila = tbl_camion.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un camión de la tabla.");
+            return;
+        }
+
+        try {
+            int idCamion = (int) tbl_camion.getValueAt(fila, 0);
+            int kmActualBD = (int) tbl_camion.getValueAt(fila, 2);
+            int kmNuevos = Integer.parseInt(txt_km_hoy.getText());
+
+            
+            int nuevoTotal = kmActualBD + kmNuevos;
+            CamionDao cDao = new CamionDao();
+            MantenimientoDao mDao = new MantenimientoDao();
+
+            if (cDao.actualizarKilometraje(idCamion, nuevoTotal)) {
+                
+                
+                int ultimoKmTaller = mDao.obtenerUltimoKilometrajeMantenimiento(idCamion);
+                int diferencia = nuevoTotal - ultimoKmTaller;
+
+                if (diferencia >= 5000) {
+                    JOptionPane.showMessageDialog(this, 
+                        "⚠️ ALERTA DE MANTENIMIENTO\n" +
+                        "El camión ha recorrido " + diferencia + " km desde su última mantencion.\n" +
+                        "¡DEBE IR A TALLER!", "Aviso Hirata", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Viaje registrado con éxito.");
+                }
+
+                cargarTabla(); 
+                txt_km_hoy.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido.");
+        }
+    
+    }//GEN-LAST:event_bt_registrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,13 +223,14 @@ public class GuiKilometraje extends javax.swing.JFrame {
     CamionDao dc = new CamionDao();
     ConductoDao cd = new ConductoDao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_registrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tbl_camion;
+    private javax.swing.JTextField txt_km_hoy;
     // End of variables declaration//GEN-END:variables
 }

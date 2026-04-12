@@ -58,11 +58,14 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     }
 
     private void cargarCbm() {
-        List<Conductor> lista = cd.listarConductoresCbm();
+        List<Conductor> lista = cd.listarConductores();
         cmb_conductor.removeAllItems();
         cmb_conductor.addItem("-- Seleccione un conductor --");
+        
         for (Conductor c : lista) {
-            cmb_conductor.addItem(c.getRut());
+            
+            
+            cmb_conductor.addItem(c); 
         }
     }
 
@@ -317,9 +320,22 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         c.setModelo(this.txt_modelo.getText());
         c.setAnio(Integer.valueOf(this.txt_anio.getText()));
         c.setKilometrajeActual(Integer.valueOf(this.txt_kilometraje.getText()));
+        
+        
+        if (cmb_conductor.getSelectedIndex() > 0) {
+            Conductor conductorSeleccionado = (Conductor) cmb_conductor.getSelectedItem();
+            c.setConductor(conductorSeleccionado);
+        } else {
+            
+            Conductor vacio = new Conductor();
+            vacio.setIdConductor(0);
+            c.setConductor(vacio);
+        }
+
         dc.registrarCamion(c);
         cargarTabla();
-        JOptionPane.showMessageDialog(this, "✅ Producto guardado");
+        JOptionPane.showMessageDialog(this, "✅ Camión guardado exitosamente");
+        cambiarAModoNuevo();
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked
@@ -328,6 +344,7 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             Object cellValue = this.tbl_camion.getValueAt(selectedRow, 0);
             Integer id_seleccionado = (Integer) cellValue;
             this.txt_id.setText(id_seleccionado.toString());
+            
             for (Camion c : dc.listarCamiones()) {
                 if (c.getIdCamion() == id_seleccionado) {
                     this.txt_patente.setText(c.getPatente());
@@ -335,7 +352,22 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
                     this.txt_modelo.setText(c.getModelo());
                     this.txt_anio.setText(String.valueOf(c.getAnio()));
                     this.txt_kilometraje.setText(String.valueOf(c.getKilometrajeActual()));
-                    this.cmb_conductor.setSelectedItem(c.getConductor());
+                    
+                   
+                    if (c.getConductor() != null && c.getConductor().getIdConductor() != 0) {
+                      
+                        for (int i = 1; i < cmb_conductor.getItemCount(); i++) {
+                            Conductor itemCombo = (Conductor) cmb_conductor.getItemAt(i);
+                            if (itemCombo.getIdConductor() == c.getConductor().getIdConductor()) {
+                                cmb_conductor.setSelectedIndex(i); 
+                                break;
+                            }
+                        }
+                    } else {
+                        
+                        cmb_conductor.setSelectedIndex(0); 
+                    }
+                    
                 }
             }
         }
@@ -395,7 +427,14 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         if (!this.txt_id.getText().trim().isEmpty()) {
             c_encontrado.setIdCamion(Integer.parseInt(this.txt_id.getText()));
         }
-
+        if (cmb_conductor.getSelectedIndex() > 0) {
+            Conductor conductorSeleccionado = (Conductor) cmb_conductor.getSelectedItem();
+            c_encontrado.setConductor(conductorSeleccionado);
+        } else {
+            Conductor vacio = new Conductor();
+            vacio.setIdConductor(0);
+            c_encontrado.setConductor(vacio);
+        }
         dc.modificarCamion(c_encontrado);
 
         cargarTabla();
@@ -417,7 +456,7 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_editar;
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_guardar;
-    private javax.swing.JComboBox<String> cmb_conductor;
+    private javax.swing.JComboBox<Object> cmb_conductor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

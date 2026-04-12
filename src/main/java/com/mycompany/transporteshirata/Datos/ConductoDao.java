@@ -45,7 +45,8 @@ public class ConductoDao {
 
 
     public boolean registrarConductor(Conductor c) {
-        String sql = "INSERT INTO Conductor (rut, nombre, licencia, telefono) VALUES (?, ?, ?, ?)";
+        // Agregamos la 'clave' al INSERT y un '?' extra
+        String sql = "INSERT INTO Conductor (rut, nombre, licencia, telefono, clave) VALUES (?, ?, ?, ?, ?)";
         try {
             con = Conexion.getConexion();
             ps = con.prepareStatement(sql);
@@ -53,16 +54,18 @@ public class ConductoDao {
             ps.setString(2, c.getNombre());
             ps.setString(3, c.getLicencia());
             ps.setString(4, c.getTelefono());
+            ps.setString(5, c.getClave()); // OJO AQUI
             ps.execute();
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al registrar : " + e.toString());
             return false;
-        }
+    }
     }
 
     public boolean modificarConductor(Conductor c) {
-        String sql = "UPDATE Conductor SET rut=?, nombre=?, licencia=?, telefono=? WHERE idConductor=?";
+        // Agregamos la 'clave' al UPDATE
+        String sql = "UPDATE Conductor SET rut=?, nombre=?, licencia=?, telefono=?, clave=? WHERE idConductor=?";
         try {
             con = Conexion.getConexion();
             ps = con.prepareStatement(sql);
@@ -70,7 +73,8 @@ public class ConductoDao {
             ps.setString(2, c.getNombre());
             ps.setString(3, c.getLicencia());
             ps.setString(4, c.getTelefono());
-            ps.setInt(5, c.getIdConductor());
+            ps.setString(5, c.getClave()); // OJO AQUI
+            ps.setInt(6, c.getIdConductor());
             ps.execute();
             return true;
         } catch (SQLException e) {

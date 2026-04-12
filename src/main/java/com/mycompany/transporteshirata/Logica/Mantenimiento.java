@@ -69,4 +69,6 @@ public class Mantenimiento {
     public void setCamion(Camion camion) {
         this.camion = camion; 
     }
+    
+    
 }

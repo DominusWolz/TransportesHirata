@@ -38,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         openMenuItem1 = new javax.swing.JMenuItem();
         bt_conductor1 = new javax.swing.JMenu();
         bt_mantenimiento = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +82,14 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor1.add(bt_mantenimiento);
 
+        jMenuItem1.setText("Historial Mantenimiento");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        bt_conductor1.add(jMenuItem1);
+
         menuBar.add(bt_conductor1);
 
         setJMenuBar(menuBar);
@@ -116,6 +125,12 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.add(m);
         m.setVisible(true);
     }//GEN-LAST:event_bt_mantenimientoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        GuiHistorialMantenimiento hist = new GuiHistorialMantenimiento();
+        desktopPane.add(hist);
+        hist.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +172,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu bt_conductor1;
     private javax.swing.JMenuItem bt_mantenimiento;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem openMenuItem1;

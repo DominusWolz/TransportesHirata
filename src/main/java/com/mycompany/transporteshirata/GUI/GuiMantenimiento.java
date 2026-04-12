@@ -4,10 +4,13 @@
  */
 package com.mycompany.transporteshirata.GUI;
 
-import com.mycompany.transporteshirata.Datos.CamionDao;
+import com.mycompany.transporteshirata.Datos.MantenimientoDao;
 import com.mycompany.transporteshirata.Logica.Camion;
+import com.mycompany.transporteshirata.Logica.Mantenimiento;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import com.mycompany.transporteshirata.Datos.CamionDao;
 /**
  *
  * @author danie
@@ -21,7 +24,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         initComponents();
         cargarTabla();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,9 +48,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txt_descripcion = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_kilometraje = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_camion = new javax.swing.JTextField();
+        bt_guardar = new javax.swing.JButton();
+        bt_cancelar = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -112,11 +117,20 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Kilometraje");
 
-        jTextField1.setEditable(false);
+        txt_kilometraje.setEditable(false);
 
         jLabel7.setText("Camion");
 
-        jTextField2.setEditable(false);
+        txt_camion.setEditable(false);
+
+        bt_guardar.setText("Guardar");
+        bt_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_guardarActionPerformed(evt);
+            }
+        });
+
+        bt_cancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -146,9 +160,15 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))))
+                            .addComponent(txt_kilometraje)
+                            .addComponent(txt_camion))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_guardar)
+                    .addComponent(bt_cancelar))
+                .addGap(208, 208, 208))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,12 +192,16 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_kilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(295, Short.MAX_VALUE))
+                    .addComponent(txt_camion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addComponent(bt_guardar)
+                .addGap(26, 26, 26)
+                .addComponent(bt_cancelar)
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,16 +242,65 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         tbl_camion.setModel(tableModel);
 
     }
+    
+    public void limpiarFormulario() {
+        this.txt_camion.setText("");
+        this.txt_kilometraje.setText("");
+        this.txt_descripcion.setText("");
+        this.txt_fecha.setText("");
+        this.tbl_camion.clearSelection();
+    }
     private void txt_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_fechaActionPerformed
 
     private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked
-        // TODO add your handling code here:
+        int fila = tbl_camion.getSelectedRow();
+        if (fila != -1) {
+            
+            String patente = tbl_camion.getValueAt(fila, 1).toString();
+            String kmActual = tbl_camion.getValueAt(fila, 2).toString();
+
+            
+            txt_camion.setText(patente);
+            txt_kilometraje.setText(kmActual);
+            txt_fecha.setText(LocalDate.now().toString()); // Fecha de hoy automática
+        }
     }//GEN-LAST:event_tbl_camionMouseClicked
+
+    private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        int fila = tbl_camion.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un camión de la tabla.");
+            return;
+        }
+
+        try {
+           
+            Mantenimiento m = new Mantenimiento();
+            m.setFecha(LocalDate.parse(txt_fecha.getText()));
+            m.setTipo(cmb_tipo.getSelectedItem().toString());
+            m.setDescripcion(txt_descripcion.getText());
+            m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
+
+            Camion c = new Camion();
+            c.setIdCamion((int) tbl_camion.getValueAt(fila, 0)); 
+            m.setCamion(c);
+
+            MantenimientoDao mDao = new MantenimientoDao();
+            if (mDao.registrarMantenimiento(m)) {
+                JOptionPane.showMessageDialog(this, "✅ Mantenimiento registrado. La alerta se ha actualizado.");
+                limpiarFormulario();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_bt_guardarActionPerformed
 
     CamionDao dc = new CamionDao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_cancelar;
+    private javax.swing.JButton bt_guardar;
     private javax.swing.JComboBox<String> cmb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -239,11 +312,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tbl_camion;
+    private javax.swing.JTextField txt_camion;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_id;
+    private javax.swing.JTextField txt_kilometraje;
     // End of variables declaration//GEN-END:variables
 }

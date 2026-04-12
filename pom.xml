@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>com.mycompany.transporteshirata.GUI.PrincipalConductor</exec.mainClass>
+        <exec.mainClass>com.mycompany.transporteshirata.GUI.GuiLoginPrincipal</exec.mainClass>
     </properties>
     <name>TransportesHirata</name>
 </project>

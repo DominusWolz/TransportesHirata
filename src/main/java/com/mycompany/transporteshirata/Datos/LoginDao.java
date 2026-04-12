@@ -25,30 +25,9 @@ public class LoginDao {
     PreparedStatement ps;
     ResultSet rs;
 
-    // Método que solo obtiene los datos del login (rut y contraseña)
-    public Login obtenerDatosLogin(String rut) {
-        Login login = null;
-        String sql = "SELECT rutConductor, contrasena FROM Login_Conductor WHERE rutConductor = ?";
-
-        try {
-            con = Conexion.getConexion();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, rut);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                login = new Login();
-                login.setRutConductor(rs.getString("rutConductor"));
-                login.setContrasena(rs.getString("contrasena"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener datos de login: " + e.toString());
-        }
-        return login;
-    }
-
     public boolean validarCredenciales(String rut, String contrasenaIngresada) {
-        String sql = "SELECT contrasena FROM Login_Conductor WHERE rutConductor = ?";
+        
+        String sql = "SELECT clave FROM Conductor WHERE rut = ?";
 
         try {
             con = Conexion.getConexion();
@@ -57,8 +36,7 @@ public class LoginDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                String contrasenaAlmacenada = rs.getString("contrasena");
-                // Comparación directa (asumiendo que no está encriptada)
+                String contrasenaAlmacenada = rs.getString("clave");
                 return contrasenaAlmacenada.equals(contrasenaIngresada);
             }
         } catch (SQLException e) {

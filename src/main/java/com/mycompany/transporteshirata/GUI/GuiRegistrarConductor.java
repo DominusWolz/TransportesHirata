@@ -52,6 +52,8 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         bt_editar = new javax.swing.JButton();
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txt_clave = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -89,6 +91,14 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
 
         bt_cancelar.setText("Cancelar");
 
+        jLabel6.setText("Contraseña");
+
+        txt_clave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_claveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,11 +127,15 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txt_licencia))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_telefono))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_telefono)
+                                    .addComponent(txt_clave)))))
                     .addComponent(bt_eliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bt_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                    .addComponent(bt_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,13 +161,17 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_clave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -216,7 +234,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -256,7 +274,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         con.setNombre(this.txt_nombre.getText());
         con.setLicencia(this.txt_licencia.getText());
         con.setTelefono(this.txt_telefono.getText());
-
+        con.setClave(this.txt_clave.getText());
         dcon.registrarConductor(con);
 
         cargarTabla();
@@ -303,6 +321,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.txt_nombre.setText("");
         this.txt_licencia.setText("");
         this.txt_telefono.setText("");
+        this.txt_clave.setText("");
     }
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
@@ -323,7 +342,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         dcon_encontrado.setNombre(this.txt_nombre.getText());
         dcon_encontrado.setLicencia(this.txt_licencia.getText());
         dcon_encontrado.setTelefono(this.txt_telefono.getText());
-
+        dcon_encontrado.setClave(this.txt_clave.getText());
         if (!this.txt_id.getText().trim().isEmpty()) {
             dcon_encontrado.setIdConductor(Integer.parseInt(this.txt_id.getText()));
         }
@@ -334,6 +353,10 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.limpiarFormulario();
         cambiarAModoNuevo();
     }//GEN-LAST:event_bt_editarActionPerformed
+
+    private void txt_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_claveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_claveActionPerformed
     ConductoDao dcon = new ConductoDao();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,11 +369,13 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_conductor;
+    private javax.swing.JTextField txt_clave;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_licencia;
     private javax.swing.JTextField txt_nombre;

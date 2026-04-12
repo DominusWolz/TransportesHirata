@@ -14,7 +14,9 @@ public class Conductor {
     private String nombre;
     private String licencia;
     private String telefono;
-
+    private String clave;
+   
+    
    
     public Conductor() {
     }
@@ -44,6 +46,9 @@ public class Conductor {
     public String getTelefono() {
         return telefono; 
     }
+    public String getClave() {
+        return clave; }
+    
 
     // los Setters :)
     public void setIdConductor(int idConductor) {
@@ -61,7 +66,8 @@ public class Conductor {
     public void setTelefono(String telefono) {
         this.telefono = telefono; 
     }
-
+    public void setClave(String clave) {
+        this.clave = clave; }
     // toString pa mostrar la wea en los ComboBox   wea = cosa/datos
     @Override
     public String toString() {
