@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ConductoDaoTest" time="0.451" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ConductoDaoTest" time="0.789" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="24"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="CL"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
-    <property name="sun.java.command" value="C:\Users\danie\AppData\Local\Temp\surefire1013796110182728976\surefirebooter-20260412214628707_3.jar C:\Users\danie\AppData\Local\Temp\surefire1013796110182728976 2026-04-12T21-46-28_596-jvmRun1 surefire-20260412214628707_1tmp surefire_0-20260412214628707_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\danie\AppData\Local\Temp\surefire4380149727744907541\surefirebooter-20260412223203461_3.jar C:\Users\danie\AppData\Local\Temp\surefire4380149727744907541 2026-04-12T22-32-03_340-jvmRun1 surefire-20260412223203461_1tmp surefire_0-20260412223203461_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="ConductoDaoTest#testListarConductores"/>
+    <property name="test" value="ConductoDaoTest#testRegistrarConductor"/>
     <property name="surefire.test.class.path" value="C:\Users\danie\OneDrive\Documentos\GitHub\transporterhirata\target\test-classes;C:\Users\danie\OneDrive\Documentos\GitHub\transporterhirata\target\classes;C:\Users\danie\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\danie\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.0\junit-jupiter-5.10.0.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\danie\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\danie\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\danie\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\danie\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;C:\Users\danie\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\danie\.m2\repository\org\mockito\mockito-core\5.6.0\mockito-core-5.6.0.jar;C:\Users\danie\.m2\repository\net\bytebuddy\byte-buddy\1.14.8\byte-buddy-1.14.8.jar;C:\Users\danie\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.8\byte-buddy-agent-1.14.8.jar;C:\Users\danie\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\danie"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\danie\AppData\Local\Temp\surefire1013796110182728976\surefirebooter-20260412214628707_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\danie\AppData\Local\Temp\surefire4380149727744907541\surefirebooter-20260412223203461_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="24.0.2+12-54"/>
@@ -60,16 +60,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="68.0"/>
   </properties>
-  <testcase name="testListarConductores" classname="ConductoDaoTest" time="0.419">
+  <testcase name="testRegistrarConductor" classname="ConductoDaoTest" time="0.757">
     <system-out><![CDATA[🔧 Iniciando pruebas de ConductoDao...
 ⚠️ ATENCIÓN: Se modificarán datos en la BD REAL
 📝 Configurando prueba con RUT: 99.999.999-9
-📋 Probando listarConductores()
-📊 Total conductores encontrados: 4
-   - pepe tapia (20.000.000-0)
-   - Juan Perez (12.345.678-9)
-   - María Rodríguez Soto (23.456.789-0)
-   - anuel (12.121.222-1)
+📝 Probando registrarConductor()
+🧹 Conductor de prueba eliminado (ID: 5)
 🧹 Limpiando después de prueba...
 ]]></system-out>
   </testcase>

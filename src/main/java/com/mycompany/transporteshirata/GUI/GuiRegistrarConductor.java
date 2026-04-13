@@ -262,8 +262,9 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                 con.getRut(),
                 con.getNombre(),
                 con.getLicencia(),
-                con.getTelefono(),};
-                con.getClave();
+                con.getTelefono(),
+                con.getClave()
+            };
             tableModel.addRow(objs);
         }
         tbl_conductor.setModel(tableModel);
@@ -295,6 +296,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                     this.txt_nombre.setText(dcon.getNombre());
                     this.txt_licencia.setText(dcon.getLicencia());
                     this.txt_telefono.setText(dcon.getTelefono());
+                    this.txt_clave.setText(dcon.getClave());
                 }
             }
         }

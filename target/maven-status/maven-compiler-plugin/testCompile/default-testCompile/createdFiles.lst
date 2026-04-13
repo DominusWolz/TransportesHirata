@@ -1,4 +1,5 @@
 TestCamionDao.class
 ConductoDaoTest.class
 ConexionTest.class
+LoginDaoTest.class
 MantenimientoDaoTest.class

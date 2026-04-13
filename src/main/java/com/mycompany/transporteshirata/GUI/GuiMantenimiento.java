@@ -16,7 +16,7 @@ import com.mycompany.transporteshirata.Datos.CamionDao;
  * @author danie
  */
 public class GuiMantenimiento extends javax.swing.JInternalFrame {
-
+private int idCamionSeleccionado = 0;
     /**
      * Creates new form GuiMantenimiento
      */
@@ -55,6 +55,9 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         bt_cancelar = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
+
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Camion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
@@ -244,6 +247,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     }
     
     public void limpiarFormulario() {
+        this.txt_id.setText("");
         this.txt_camion.setText("");
         this.txt_kilometraje.setText("");
         this.txt_descripcion.setText("");
@@ -257,11 +261,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked
         int fila = tbl_camion.getSelectedRow();
         if (fila != -1) {
-            
+            idCamionSeleccionado = (int) tbl_camion.getValueAt(fila, 0);
             String patente = tbl_camion.getValueAt(fila, 1).toString();
             String kmActual = tbl_camion.getValueAt(fila, 2).toString();
 
-            
+            txt_id.setText(String.valueOf(idCamionSeleccionado)); 
             txt_camion.setText(patente);
             txt_kilometraje.setText(kmActual);
             txt_fecha.setText(LocalDate.now().toString()); // Fecha de hoy automática

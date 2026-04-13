@@ -61,7 +61,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         txt_km_hoy = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         bt_registrar = new javax.swing.JButton();
@@ -79,6 +79,11 @@ public class GuiKilometraje extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_camion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_camionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_camion);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
@@ -106,7 +111,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -118,7 +123,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Camion Seleccionado - Patente");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         txt_km_hoy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -146,7 +151,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
+                    .addComponent(txt_id)
                     .addComponent(txt_km_hoy, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -161,14 +166,14 @@ public class GuiKilometraje extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_km_hoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(bt_registrar))
-                .addGap(0, 58, Short.MAX_VALUE))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,6 +224,14 @@ public class GuiKilometraje extends javax.swing.JFrame {
        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked
+    int fila = tbl_camion.getSelectedRow();
+    if (fila != -1) {
+        int idCamion = (int) tbl_camion.getValueAt(fila, 0);
+        txt_id.setText(String.valueOf(idCamion));  // 👈 ESTA ES LA LÍNEA QUE AGREGA
+    }
+    }//GEN-LAST:event_tbl_camionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -253,8 +266,8 @@ public class GuiKilometraje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tbl_camion;
+    private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_km_hoy;
     // End of variables declaration//GEN-END:variables
 }

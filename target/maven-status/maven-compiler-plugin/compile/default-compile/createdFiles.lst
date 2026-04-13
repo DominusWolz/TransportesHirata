@@ -1,6 +1,7 @@
 com\mycompany\transporteshirata\Datos\MantenimientoDao.class
 com\mycompany\transporteshirata\Datos\ConductoDao.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$5.class
+com\mycompany\transporteshirata\GUI\ContraseñaAdmin$2.class
 com\mycompany\transporteshirata\GUI\Principal.class
 com\mycompany\transporteshirata\GUI\Principal$1.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento.class
@@ -31,6 +32,7 @@ com\mycompany\transporteshirata\GUI\Principal$2.class
 com\mycompany\transporteshirata\GUI\GuiLogin$1.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$3.class
+com\mycompany\transporteshirata\GUI\GuiKilometraje$3.class
 com\mycompany\transporteshirata\Logica\Camion.class
 com\mycompany\transporteshirata\GUI\GuiLogin$nombreConductor.class
 com\mycompany\transporteshirata\Datos\Conexion.class
