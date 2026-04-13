@@ -11,12 +11,15 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.mycompany.transporteshirata.Datos.CamionDao;
+
 /**
  *
  * @author danie
  */
 public class GuiMantenimiento extends javax.swing.JInternalFrame {
-private int idCamionSeleccionado = 0;
+
+    private int idCamionSeleccionado = 0;
+
     /**
      * Creates new form GuiMantenimiento
      */
@@ -24,7 +27,7 @@ private int idCamionSeleccionado = 0;
         initComponents();
         cargarTabla();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,7 +248,7 @@ private int idCamionSeleccionado = 0;
         tbl_camion.setModel(tableModel);
 
     }
-    
+
     public void limpiarFormulario() {
         this.txt_id.setText("");
         this.txt_camion.setText("");
@@ -265,11 +268,12 @@ private int idCamionSeleccionado = 0;
             String patente = tbl_camion.getValueAt(fila, 1).toString();
             String kmActual = tbl_camion.getValueAt(fila, 2).toString();
 
-            txt_id.setText(String.valueOf(idCamionSeleccionado)); 
+            txt_id.setText(String.valueOf(idCamionSeleccionado));
             txt_camion.setText(patente);
             txt_kilometraje.setText(kmActual);
             txt_fecha.setText(LocalDate.now().toString()); // Fecha de hoy automática
         }
+
     }//GEN-LAST:event_tbl_camionMouseClicked
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
@@ -278,9 +282,13 @@ private int idCamionSeleccionado = 0;
             JOptionPane.showMessageDialog(this, "Debe seleccionar un camión de la tabla.");
             return;
         }
+        if (txt_descripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, asegúrese de llenar todos los campos de texto y la descripción del arreglo.");
+            return;
+        }
 
         try {
-           
+
             Mantenimiento m = new Mantenimiento();
             m.setFecha(LocalDate.parse(txt_fecha.getText()));
             m.setTipo(cmb_tipo.getSelectedItem().toString());
@@ -288,7 +296,7 @@ private int idCamionSeleccionado = 0;
             m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
 
             Camion c = new Camion();
-            c.setIdCamion((int) tbl_camion.getValueAt(fila, 0)); 
+            c.setIdCamion((int) tbl_camion.getValueAt(fila, 0));
             m.setCamion(c);
 
             MantenimientoDao mDao = new MantenimientoDao();

@@ -37,11 +37,23 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         cargarCbm();
     }
 
+    public boolean validarPatente(String patente) {
+        // Valida formato patente , XX-22-11 O ZZ-XX-22
+        return patente.toUpperCase().matches("^([A-Z]{2}-[0-9]{2}-[0-9]{2}|[A-Z]{2}-[A-Z]{2}-[0-9]{2})$");
+    }
+
     public void cargarTabla() {
         String col[] = {"id", "Patente", "Marca", "Modelo", "Año", "Kilometraje", "Conductor"};
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         for (Camion c : dc.listarCamiones()) {
+
+            String infoConductor = "Sin asignar";
+            if (c.getConductor() != null && c.getConductor().getIdConductor() != 0) {
+
+                infoConductor = c.getConductor().getNombre();
+            }
+
             Object[] objs = {
                 c.getIdCamion(),
                 c.getPatente(),
@@ -49,7 +61,7 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
                 c.getModelo(),
                 c.getAnio(),
                 c.getKilometrajeActual(),
-                c.getConductor()
+                infoConductor
             };
             tableModel.addRow(objs);
         }
@@ -61,11 +73,10 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
         List<Conductor> lista = cd.listarConductores();
         cmb_conductor.removeAllItems();
         cmb_conductor.addItem("-- Seleccione un conductor --");
-        
+
         for (Conductor c : lista) {
-            
-            
-            cmb_conductor.addItem(c); 
+
+            cmb_conductor.addItem(c);
         }
     }
 
@@ -314,19 +325,34 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        //Validacion campos vacíos
+        if (txt_patente.getText().trim().isEmpty() || txt_marca.getText().trim().isEmpty()
+                || txt_modelo.getText().trim().isEmpty() || txt_anio.getText().trim().isEmpty()
+                || txt_kilometraje.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos del camión.");
+            return;
+        }
+        if (cmb_conductor.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, asigne un conductor de la lista al camión.");
+            return;
+        }
+        //Validacion formato de Patente
+        if (!validarPatente(txt_patente.getText())) {
+            JOptionPane.showMessageDialog(this, "Formato de Patente inválido. Use formatos como AB-12-34 o AB-CD-12.");
+            return;
+        }
         Camion c = new Camion();
         c.setPatente(this.txt_patente.getText());
         c.setMarca(this.txt_marca.getText());
         c.setModelo(this.txt_modelo.getText());
         c.setAnio(Integer.valueOf(this.txt_anio.getText()));
         c.setKilometrajeActual(Integer.valueOf(this.txt_kilometraje.getText()));
-        
-        
+
         if (cmb_conductor.getSelectedIndex() > 0) {
             Conductor conductorSeleccionado = (Conductor) cmb_conductor.getSelectedItem();
             c.setConductor(conductorSeleccionado);
         } else {
-            
+
             Conductor vacio = new Conductor();
             vacio.setIdConductor(0);
             c.setConductor(vacio);
@@ -344,7 +370,7 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             Object cellValue = this.tbl_camion.getValueAt(selectedRow, 0);
             Integer id_seleccionado = (Integer) cellValue;
             this.txt_id.setText(id_seleccionado.toString());
-            
+
             for (Camion c : dc.listarCamiones()) {
                 if (c.getIdCamion() == id_seleccionado) {
                     this.txt_patente.setText(c.getPatente());
@@ -352,22 +378,21 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
                     this.txt_modelo.setText(c.getModelo());
                     this.txt_anio.setText(String.valueOf(c.getAnio()));
                     this.txt_kilometraje.setText(String.valueOf(c.getKilometrajeActual()));
-                    
-                   
+
                     if (c.getConductor() != null && c.getConductor().getIdConductor() != 0) {
-                      
+
                         for (int i = 1; i < cmb_conductor.getItemCount(); i++) {
                             Conductor itemCombo = (Conductor) cmb_conductor.getItemAt(i);
                             if (itemCombo.getIdConductor() == c.getConductor().getIdConductor()) {
-                                cmb_conductor.setSelectedIndex(i); 
+                                cmb_conductor.setSelectedIndex(i);
                                 break;
                             }
                         }
                     } else {
-                        
-                        cmb_conductor.setSelectedIndex(0); 
+
+                        cmb_conductor.setSelectedIndex(0);
                     }
-                    
+
                 }
             }
         }
@@ -402,6 +427,22 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        //Validacion campos vacíos
+        if (txt_patente.getText().trim().isEmpty() || txt_marca.getText().trim().isEmpty()
+                || txt_modelo.getText().trim().isEmpty() || txt_anio.getText().trim().isEmpty()
+                || txt_kilometraje.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos del camión.");
+            return;
+        }
+        if (cmb_conductor.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, asigne un conductor de la lista al camión.");
+            return;
+        }
+        //Validacion formato de Patente
+        if (!validarPatente(txt_patente.getText())) {
+            JOptionPane.showMessageDialog(this, "Formato de Patente inválido. Use formatos como AB1234 o ABCD12.");
+            return;
+        }
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
         System.out.println("ID seleccionado: " + id_seleccionado);
 
@@ -477,7 +518,4 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_patente;
     // End of variables declaration//GEN-END:variables
 
-    private void setLocationRelativeTo(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

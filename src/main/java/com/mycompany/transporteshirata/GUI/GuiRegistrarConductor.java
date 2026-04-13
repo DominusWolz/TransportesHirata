@@ -33,6 +33,18 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.setSize(1080, 720);
     }
 
+    public boolean validarRut(String rut) {
+        //Valida entre 7 u 8 números, un guion y un número o la letra K
+        return rut.matches("^[0-9]{7,8}-[0-9kK]{1}$");
+    }
+    public boolean validarTelefono(String telefono) {
+        // Valida que sean entre 8 y 11 números (sin letras, sin espacios)
+        return telefono.matches("^[0-9]{8,11}$");
+    }
+    public boolean validarClave(String clave) {
+        //Verifica que la clave tenga entre 6 y 20 caracteres
+        return clave.length() >= 6 && clave.length() <= 20;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -271,6 +283,31 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
 
     }
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        //Valida campos vacíos
+        if (txt_rut.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || 
+            txt_clave.getText().trim().isEmpty() || txt_licencia.getText().trim().isEmpty() || 
+            txt_telefono.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos obligatorios.");
+            return;
+        }
+        
+        //Valida formato de RUT
+        if (!validarRut(txt_rut.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Formato de RUT inválido. Use el formato: 12345678-9");
+            return; 
+        }
+
+        //Valida formato de Teléfono
+        if (!validarTelefono(txt_telefono.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números (entre 8 y 11 dígitos).");
+            return;
+        }
+        //Validacion de longitud de la contraseña
+        if (!validarClave(txt_clave.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La contraseña debe tener entre 6 y 20 caracteres por seguridad.");
+            return;
+        }
+
         Conductor con = new Conductor();
         con.setRut(this.txt_rut.getText());
         con.setNombre(this.txt_nombre.getText());
@@ -328,6 +365,31 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.txt_clave.setText("");
     }
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        //Valida campos vacíos
+        if (txt_rut.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || 
+            txt_clave.getText().trim().isEmpty() || txt_licencia.getText().trim().isEmpty() || 
+            txt_telefono.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos obligatorios.");
+            return;
+        }
+        
+        //Valida formato de RUT
+        if (!validarRut(txt_rut.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Formato de RUT inválido. Use el formato: 12345678-9");
+            return; 
+        }
+
+        //Valida formato de Teléfono
+        if (!validarTelefono(txt_telefono.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números (entre 8 y 11 dígitos).");
+            return;
+        }
+        //Validacion de longitud de la contraseña 
+        if (!validarClave(txt_clave.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La contraseña debe tener entre 6 y 20 caracteres por seguridad.");
+            return;
+        }
+        
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
         Conductor dcon_encontrado = null;
         for (Conductor dcon : dcon.listarConductores()) {

@@ -190,6 +190,10 @@ public class GuiKilometraje extends javax.swing.JFrame {
             int idCamion = (int) tbl_camion.getValueAt(fila, 0);
             int kmActualBD = (int) tbl_camion.getValueAt(fila, 2);
             int kmNuevos = Integer.parseInt(txt_km_hoy.getText());
+            if (kmNuevos <= 0) {
+                JOptionPane.showMessageDialog(this, "Error: Los kilómetros recorridos deben ser mayores a 0.");
+                return; 
+                }
 
             
             int nuevoTotal = kmActualBD + kmNuevos;
@@ -228,7 +232,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
     int fila = tbl_camion.getSelectedRow();
     if (fila != -1) {
         int idCamion = (int) tbl_camion.getValueAt(fila, 0);
-        txt_id.setText(String.valueOf(idCamion));  // 👈 ESTA ES LA LÍNEA QUE AGREGA
+        txt_id.setText(String.valueOf(idCamion)); 
     }
     }//GEN-LAST:event_tbl_camionMouseClicked
 

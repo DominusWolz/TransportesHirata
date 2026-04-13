@@ -99,9 +99,7 @@ public class ConductoDao {
         }
     }
 
-    public void create(Conductor con) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
     public List<Conductor> listarConductoresCbm() {
         List<Conductor> lista = new ArrayList<>();
         String sql = "SELECT * FROM Conductor";
