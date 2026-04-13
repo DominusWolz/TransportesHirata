@@ -90,6 +90,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
 
+        setClosable(true);
+
         tbl_historial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

@@ -31,14 +31,28 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         bt_conductor = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
         openMenuItem1 = new javax.swing.JMenuItem();
+        openMenuItem2 = new javax.swing.JMenuItem();
         bt_conductor1 = new javax.swing.JMenu();
         bt_mantenimiento = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        openMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +80,15 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor.add(openMenuItem1);
 
+        openMenuItem2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        openMenuItem2.setText("Volver");
+        openMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItem2ActionPerformed(evt);
+            }
+        });
+        bt_conductor.add(openMenuItem2);
+
         menuBar.add(bt_conductor);
 
         bt_conductor1.setMnemonic('f');
@@ -82,6 +105,7 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor1.add(bt_mantenimiento);
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jMenuItem1.setText("Historial Mantenimiento");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +113,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         bt_conductor1.add(jMenuItem1);
+
+        openMenuItem3.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        openMenuItem3.setText("Volver");
+        openMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItem3ActionPerformed(evt);
+            }
+        });
+        bt_conductor1.add(openMenuItem3);
 
         menuBar.add(bt_conductor1);
 
@@ -132,6 +165,24 @@ public class Principal extends javax.swing.JFrame {
         hist.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            this.setVisible(false);
+            GuiLoginPrincipal p = new GuiLoginPrincipal();
+            p.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void openMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem2ActionPerformed
+            this.setVisible(false);
+            GuiLoginPrincipal p = new GuiLoginPrincipal();
+            p.setVisible(true);
+    }//GEN-LAST:event_openMenuItem2ActionPerformed
+
+    private void openMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem3ActionPerformed
+            this.setVisible(false);
+            GuiLoginPrincipal p = new GuiLoginPrincipal();
+            p.setVisible(true);      
+    }//GEN-LAST:event_openMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -172,10 +223,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu bt_conductor1;
     private javax.swing.JMenuItem bt_mantenimiento;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem openMenuItem1;
+    private javax.swing.JMenuItem openMenuItem2;
+    private javax.swing.JMenuItem openMenuItem3;
     // End of variables declaration//GEN-END:variables
 
 }

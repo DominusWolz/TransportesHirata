@@ -254,7 +254,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void cargarTabla() {
-        String col[] = {"id", "Rut", "Nombre", "Licencia", "Telefono"};
+        String col[] = {"id", "Rut", "Nombre", "Licencia", "Telefono", "Contraseña"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         for (Conductor con : dcon.listarConductores()) {
             Object[] objs = {
@@ -263,6 +263,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                 con.getNombre(),
                 con.getLicencia(),
                 con.getTelefono(),};
+                con.getClave();
             tableModel.addRow(objs);
         }
         tbl_conductor.setModel(tableModel);
@@ -279,6 +280,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
 
         cargarTabla();
         JOptionPane.showMessageDialog(this, "✅ Conductor registrado");
+        cambiarAModoNuevo();
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tbl_conductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_conductorMouseClicked

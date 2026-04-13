@@ -35,6 +35,7 @@ public class ConductoDao {
                 c.setNombre(rs.getString("nombre"));
                 c.setLicencia(rs.getString("licencia"));
                 c.setTelefono(rs.getString("telefono"));
+                c.setClave(rs.getString("clave"));
                 lista.add(c);
             }
         } catch (SQLException e) {
