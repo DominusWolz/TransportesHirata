@@ -41,7 +41,6 @@ com\mycompany\transporteshirata\GUI\GuiLoginPrincipal.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$1.class
 com\mycompany\transporteshirata\GUI\Principal$3.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor.class
-com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$4.class
 com\mycompany\transporteshirata\Datos\CamionDao.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje$2.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal$1.class

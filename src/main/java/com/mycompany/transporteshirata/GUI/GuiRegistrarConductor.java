@@ -33,10 +33,24 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.setSize(1080, 720);
     }
 
-    public boolean validarRut(String rut) {
-        //Valida entre 7 u 8 números, un guion y un número o la letra K
-        return rut.matches("^[0-9]{7,8}-[0-9kK]{1}$");
+public static boolean validarRut(String rut) {
+    boolean validacion = false;
+    try {
+        rut = rut.toUpperCase().replace(".", "").replace("-", "");
+        int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+        char dv = rut.charAt(rut.length() - 1);
+        int m = 0, s = 1;
+        for (; rutAux != 0; rutAux /= 10) {
+            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+        }
+        if (dv == (char) (s != 0 ? s + 47 : 75)) {
+            validacion = true;
+        }
+    } catch (Exception e) {
+        validacion = false;
     }
+    return validacion;
+}
     public boolean validarTelefono(String telefono) {
         // Valida que sean entre 8 y 11 números (sin letras, sin espacios)
         return telefono.matches("^[0-9]{8,11}$");
@@ -65,7 +79,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txt_clave = new javax.swing.JTextField();
+        txt_clave = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -104,12 +118,6 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         bt_cancelar.setText("Cancelar");
 
         jLabel6.setText("Contraseña");
-
-        txt_clave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_claveActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -419,10 +427,6 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.limpiarFormulario();
         cambiarAModoNuevo();
     }//GEN-LAST:event_bt_editarActionPerformed
-
-    private void txt_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_claveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_claveActionPerformed
     ConductoDao dcon = new ConductoDao();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -441,7 +445,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_conductor;
-    private javax.swing.JTextField txt_clave;
+    private javax.swing.JPasswordField txt_clave;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_licencia;
     private javax.swing.JTextField txt_nombre;

@@ -121,7 +121,7 @@ public class GuiKilometraje extends javax.swing.JFrame {
         jLabel1.setText("¿Cuanto Kilometraje va a sumar?");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Camion Seleccionado - Patente");
+        jLabel2.setText("Camion Seleccionado - ID");
 
         txt_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 

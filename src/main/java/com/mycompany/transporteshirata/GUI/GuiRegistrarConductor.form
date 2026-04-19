@@ -217,10 +217,7 @@
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_clave">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_claveActionPerformed"/>
-          </Events>
+        <Component class="javax.swing.JPasswordField" name="txt_clave">
         </Component>
       </SubComponents>
     </Container>
