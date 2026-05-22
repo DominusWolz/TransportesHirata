@@ -18,16 +18,17 @@ import javax.swing.table.DefaultTableModel;
  * @author Nicolas
  */
 public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
-    private final EquipoOficinaDao equipoDao = new EquipoOficinaDao();
-    private final MantenimientoEquipoDao mantDao = new MantenimientoEquipoDao();
+    EquipoOficinaDao ed = new EquipoOficinaDao();
+    MantenimientoEquipoDao mantDao = new MantenimientoEquipoDao();
     /**
      * Creates new form GuiMantenimientoEquipos
      */
     public GuiMantenimientoEquipos() {
         initComponents();
-        cargarComboEquipos();
-        cargarTabla();
+        cargarComboEquipos();          // llena el combo con nombres
+        cargarTablaMantenimientos();   // carga la tabla con los mantenimientos
     }   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,6 +179,11 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,95 +211,166 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrarActionPerformed
+        int fila = jTable1.getSelectedRow();
+
+        if (cmb_equipos.getItemCount() == 0 || cmb_equipos.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un equipo en el combo.");
+            return;
+        }
+
         try {
-            if (cmb_equipos.getItemCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No hay equipos registrados. Registre un equipo primero.");
-                return;
+            MantenimientoEquipoOficina m = new MantenimientoEquipoOficina();
+
+            // Fecha: si el usuario dejó vacío, uso LocalDate.now(); si escribió, intento parsear YYYY-MM-DD
+            if (txt_fechaequipo.getText().trim().isEmpty()) {
+                m.setFecha(LocalDate.now());
+            } else {
+                try {
+                    m.setFecha(LocalDate.parse(txt_fechaequipo.getText().trim()));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use YYYY-MM-DD.");
+                    return;
+                }
             }
 
-            // El combo contiene nombres (String) para evitar problemas de genéricos.
-            Object selObj = cmb_equipos.getSelectedItem();
-            EquipoOficina sel = null;
+            m.setTipo(cmb_tipomanequipo.getSelectedItem().toString());
+            m.setDescripcion(txt_descripcionman.getText());
+            m.setObservaciones(txt_observaciones.getText());
 
-            if (selObj != null) {
-                String nombreSeleccionado = selObj.toString();
-                List<EquipoOficina> lista = equipoDao.listarEquipos();
+            // Equipo: preferir selección del combo (nombre) y buscar su id
+            EquipoOficina equipoSeleccionado = null;
+            String nombreSel = (String) cmb_equipos.getSelectedItem();
+            if (nombreSel != null) {
+                List<EquipoOficina> lista = ed.listarEquipos();
                 if (lista != null) {
                     for (EquipoOficina e : lista) {
-                        if (nombreSeleccionado.equals(e.getNombre())) {
-                            sel = e;
+                        if (nombreSel.equals(e.getNombre())) {
+                            equipoSeleccionado = e;
                             break;
                         }
                     }
                 }
             }
 
-            if (sel == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione un equipo válido.");
+            if (equipoSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "No se pudo determinar el equipo. Seleccione uno válido.");
                 return;
             }
 
-            String tipo = (String) cmb_tipomanequipo.getSelectedItem();
-            String desc = txt_descripcionman.getText().trim();
-            String obs = txt_observaciones.getText().trim();
+            m.setEquipo(equipoSeleccionado);
 
-            if (desc.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese la descripción del mantenimiento.");
-                return;
+            // Si jTextField1 (ID) está vacío -> insertar; si tiene valor -> modificar
+            String idText = jTextField1.getText().trim();
+            if (idText.isEmpty()) {
+                boolean ok = mantDao.registrarMantenimiento(m);
+                if (ok) {
+                    JOptionPane.showMessageDialog(this, "✅ Mantenimiento registrado correctamente.");
+                    limpiarFormulario();
+                    cargarTablaMantenimientos();
+                }
+            } else {
+                try {
+                    int id = Integer.parseInt(idText);
+                    m.setIdMantenimiento(id);
+                    boolean ok = mantDao.modificarMantenimiento(m);
+                    if (ok) {
+                        JOptionPane.showMessageDialog(this, "✅ Mantenimiento modificado correctamente.");
+                        limpiarFormulario();
+                        cargarTablaMantenimientos();
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "ID inválido.");
+                }
             }
-
-            MantenimientoEquipoOficina m = new MantenimientoEquipoOficina();
-            m.setFecha(LocalDate.now());
-            m.setTipo(tipo);
-            m.setDescripcion(desc);
-            m.setObservaciones(obs);
-            m.setEquipo(sel);
-
-            mantDao.insertar(m);
-            cargarTabla();
-            JOptionPane.showMessageDialog(this, "Mantenimiento registrado correctamente.");
-            txt_descripcionman.setText("");
-            txt_observaciones.setText("");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al registrar mantenimiento: " + ex.getMessage());
-            ex.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
 
     private void cargarComboEquipos() {
         cmb_equipos.removeAllItems();
-        List<EquipoOficina> lista = equipoDao.listarEquipos();
+        List<EquipoOficina> lista = ed.listarEquipos();
         if (lista == null) return;
         for (EquipoOficina e : lista) {
-            // añadimos el nombre para evitar problemas de tipos con el GUI builder
             cmb_equipos.addItem(e.getNombre());
+        }
+        if (cmb_equipos.getItemCount() > 0) {
+            cmb_equipos.setSelectedIndex(0);
         }
     }
 
-    private void cargarTabla() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        List<MantenimientoEquipoOficina> lista = mantDao.listarTodos();
-        for (MantenimientoEquipoOficina m : lista) {
-            String nombreEquipo = (m.getEquipo() != null) ? m.getEquipo().getNombre() : "";
-            Object[] row = {
-                m.getIdMantenimiento(),
-                (m.getFecha() != null ? m.getFecha().toString() : ""),
-                nombreEquipo,
-                m.getTipo(),
-                m.getDescripcion(),
-                m.getObservaciones(),
-                "" // técnico no guardado en el modelo actual
-            };
-            model.addRow(row);
+    private void cargarTablaMantenimientos() {
+        String col[] = {"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        List<MantenimientoEquipoOficina> lista = mantDao.listarMantenimientos();
+        if (lista != null) {
+            for (MantenimientoEquipoOficina m : lista) {
+                Object[] objs = {
+                    m.getIdMantenimiento(),
+                    m.getFecha() != null ? m.getFecha().toString() : "",
+                    m.getTipo(),
+                    m.getDescripcion(),
+                    m.getObservaciones(),
+                    m.getEquipo() != null ? m.getEquipo().getNombre() : ""
+                };
+                tableModel.addRow(objs);
+            }
         }
+        jTable1.setModel(tableModel);
     }//GEN-LAST:event_bt_registrarActionPerformed
-
+    
+    public void limpiarFormulario() {
+        if (this.cmb_equipos.getItemCount() > 0) {
+            this.cmb_equipos.setSelectedIndex(0);
+        }
+        this.txt_descripcionman.setText("");
+        this.txt_observaciones.setText("");
+        this.txt_fechaequipo.setText("");
+        this.jTextField1.setText("");
+        this.jTable1.clearSelection();
+        this.cmb_tipomanequipo.setSelectedIndex(0);
+    }
+    
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed
 
     this.dispose();
     }//GEN-LAST:event_bt_cerrarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int fila = jTable1.getSelectedRow();
+        if (fila != -1) {
+            // Columnas: 0=id, 1=fecha, 2=tipo, 3=descripcion, 4=observaciones, 5=equipo
+            Object idObj = jTable1.getValueAt(fila, 0);
+            jTextField1.setText(idObj != null ? idObj.toString() : "");
+
+            Object fechaObj = jTable1.getValueAt(fila, 1);
+            txt_fechaequipo.setText(fechaObj != null ? fechaObj.toString() : "");
+
+            Object tipoObj = jTable1.getValueAt(fila, 2);
+            if (tipoObj != null) {
+                cmb_tipomanequipo.setSelectedItem(tipoObj.toString());
+            }
+
+            Object descObj = jTable1.getValueAt(fila, 3);
+            txt_descripcionman.setText(descObj != null ? descObj.toString() : "");
+
+            Object obsObj = jTable1.getValueAt(fila, 4);
+            txt_observaciones.setText(obsObj != null ? obsObj.toString() : "");
+
+            Object equipoObj = jTable1.getValueAt(fila, 5);
+            if (equipoObj != null) {
+                String nombre = equipoObj.toString();
+                for (int i = 0; i < cmb_equipos.getItemCount(); i++) {
+                    if (cmb_equipos.getItemAt(i).equals(nombre)) {
+                        cmb_equipos.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

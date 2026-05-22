@@ -244,7 +244,18 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarequipoActionPerformed
+    EquipoOficina eq = new EquipoOficina();
+    eq.setNombre(this.txt_nombrequipo.getText());
+    eq.setTipo(this.cmb_tipo.getSelectedItem().toString());
+    eq.setMarca(this.txt_marcaequipo.getText());
+    eq.setModelo(this.txt_modeloequipo.getText());
+    eq.setNumeroIdentificador(Integer.valueOf(this.txt_identificador.getText()));
+    eq.setEstado(this.cmb_estadoequipo.getSelectedItem().toString());
 
+    ed.registrarEquipo(eq);
+    cargarTabla();
+    JOptionPane.showMessageDialog(this, "✅ Equipo guardado exitosamente");
+    cambiarAModoNuevo();
     }//GEN-LAST:event_bt_guardarequipoActionPerformed
 
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed

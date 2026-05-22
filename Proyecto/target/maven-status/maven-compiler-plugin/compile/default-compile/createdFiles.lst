@@ -50,6 +50,7 @@ com\mycompany\transporteshirata\Datos\Conexion.class
 com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$1.class
+com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$3.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina.class
 com\mycompany\transporteshirata\GUI\Principal$3.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor.class
