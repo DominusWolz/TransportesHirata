@@ -2,12 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-
 package com.mycompany.transporteshirata.GUI;
-import com.mycompany.transporteshirata.Logica.EquipoOficina;
+
 import com.mycompany.transporteshirata.Datos.EquipoOficinaDao;
+import com.mycompany.transporteshirata.Logica.EquipoOficina;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Nicolas
  */
 public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
-    private EquipoOficinaDao ed = new EquipoOficinaDao(); // instancia del DAO
+
+    private final EquipoOficinaDao ed = new EquipoOficinaDao();
+
     /**
-     * Creates new form RegistrarEquipoOficina
+     * Creates new form GuiRegistrarEquipoOficina
      */
     public GuiRegistrarEquipoOficina() {
         initComponents();
@@ -37,38 +42,54 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txt_idequipo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txt_nombrequipo = new javax.swing.JTextField();
-        txt_tipo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cmb_tipo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         txt_marcaequipo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         txt_modeloequipo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txt_identificador = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         cmb_estadoequipo = new javax.swing.JComboBox<>();
         bt_guardarequipo = new javax.swing.JButton();
+        bt_editar = new javax.swing.JButton();
         bt_cerrar = new javax.swing.JButton();
-        tbl_EquipoOficina50 = new javax.swing.JScrollPane();
+        bt_eliminarequipo = new javax.swing.JButton();
+        bt_cancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tbl_equipoficina = new javax.swing.JTable();
 
-        jLabel1.setText("ID");
+        jLabel1.setText("ID Equipo");
 
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Nombre Equipo");
 
-        jLabel3.setText("Tipo");
+        jLabel3.setText("Tipo de Equipo");
 
-        jLabel4.setText("Marca");
+        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenador Escritorio", "Notebook Oficina", "Telefono Oficina", "Impresora" }));
+
+        jLabel4.setText("Marca ");
 
         jLabel5.setText("Modelo");
 
-        jLabel7.setText("Estado");
+        jLabel6.setText("Numero Identificador");
 
-        cmb_estadoequipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operativo", "Mantenimiento" }));
+        jLabel7.setText("Estado de Equipo ");
+
+        cmb_estadoequipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Mantencion", "En Revision", "Fuera de Linea" }));
 
         bt_guardarequipo.setText("Guardar");
         bt_guardarequipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_guardarequipoActionPerformed(evt);
+            }
+        });
+
+        bt_editar.setText("Editar");
+        bt_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_editarActionPerformed(evt);
             }
         });
 
@@ -79,6 +100,20 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
             }
         });
 
+        bt_eliminarequipo.setText("Eliminar");
+        bt_eliminarequipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_eliminarequipoActionPerformed(evt);
+            }
+        });
+
+        bt_cancelar.setText("Cancelar");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -86,31 +121,40 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmb_estadoequipo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 142, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_nombrequipo)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bt_guardarequipo)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_modeloequipo)
-                                .addComponent(txt_marcaequipo)
-                                .addComponent(txt_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(bt_guardarequipo)
+                                        .addComponent(jLabel7)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_identificador)
+                                    .addComponent(txt_nombrequipo)
+                                    .addComponent(txt_marcaequipo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_modeloequipo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmb_estadoequipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bt_editar)
+                                    .addComponent(cmb_tipo, 0, 1, Short.MAX_VALUE))))
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(bt_cerrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_cancelar)
+                        .addGap(25, 25, 25))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(bt_cerrar)
+                .addGap(78, 78, 78)
+                .addComponent(bt_eliminarequipo)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,8 +162,8 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -127,7 +171,7 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txt_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -138,12 +182,23 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
                     .addComponent(txt_modeloequipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_identificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cmb_estadoequipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(bt_guardarequipo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_guardarequipo)
+                    .addComponent(bt_editar))
+                .addGap(18, 18, 18)
+                .addComponent(bt_eliminarequipo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_cerrar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_cerrar)
+                    .addComponent(bt_cancelar))
+                .addContainerGap())
         );
 
         tbl_equipoficina.setModel(new javax.swing.table.DefaultTableModel(
@@ -157,7 +212,12 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbl_EquipoOficina50.setViewportView(tbl_equipoficina);
+        tbl_equipoficina.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_equipoficinaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_equipoficina);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,101 +225,189 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tbl_EquipoOficina50, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbl_EquipoOficina50, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarequipoActionPerformed
-       try {
-            // Validaciones básicas
-            if (txt_nombrequipo.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el nombre del equipo");
-                return;
-            }
 
-            EquipoOficina eq = new EquipoOficina();
-            eq.setNombre(txt_nombrequipo.getText().trim());
-            eq.setTipo(txt_tipo.getText().trim());
-            eq.setMarca(txt_marcaequipo.getText().trim());
-            eq.setModelo(txt_modeloequipo.getText().trim());
-            eq.setEstado(cmb_estadoequipo.getSelectedItem().toString());
-
-            // Usar el DAO para persistir (lista en memoria o BD según tu DAO)
-            ed.insertarEquipo(eq);
-
-            cargarTabla(); // refresca la JTable
-            JOptionPane.showMessageDialog(this, "✓ Equipo guardado exitosamente");
-            limpiarFormulario();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar equipo: " + ex.getMessage());
-        }
-    }
-
-    public void cargarTabla() {
-        String col[] = {"ID", "Nombre", "Tipo", "Marca", "Modelo", "Estado"};
-        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-
-        List<EquipoOficina> lista = ed.listarEquipos();
-        for (EquipoOficina eq : lista) {
-            Object[] row = {
-                eq.getIdEquipo(),
-                eq.getNombre(),
-                eq.getTipo(),
-                eq.getMarca(),
-                eq.getModelo(),
-                eq.getEstado()
-            };
-            tableModel.addRow(row);
-        }
-        tbl_equipoficina.setModel(tableModel);
-    }
-
-    public void limpiarFormulario() {
-        txt_idequipo.setText("");
-        txt_nombrequipo.setText("");
-        txt_tipo.setText("");
-        txt_marcaequipo.setText("");
-        txt_modeloequipo.setText("");
-        cmb_estadoequipo.setSelectedIndex(0);
-    
     }//GEN-LAST:event_bt_guardarequipoActionPerformed
 
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_bt_cerrarActionPerformed
 
+    private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        Integer id_seleccionado = Integer.parseInt(this.txt_idequipo.getText());
+        System.out.println("ID seleccionado: " + id_seleccionado);
+
+        EquipoOficina e_encontrado = null;
+        for (EquipoOficina e : ed.listarEquipos()) {
+            if (e.getIdEquipo() == id_seleccionado) {
+                e_encontrado = e;
+                break;
+            }
+        }
+
+        if (e_encontrado == null) {
+            JOptionPane.showMessageDialog(this, "Equipo no encontrado");
+            return;
+        }
+
+        e_encontrado.setNombre(this.txt_nombrequipo.getText());
+        e_encontrado.setTipo(this.cmb_tipo.getSelectedItem() != null ? this.cmb_tipo.getSelectedItem().toString() : "");
+        e_encontrado.setMarca(this.txt_marcaequipo.getText());
+        e_encontrado.setModelo(this.txt_modeloequipo.getText());
+        e_encontrado.setNumeroIdentificador(Integer.parseInt(this.txt_identificador.getText()));
+        e_encontrado.setEstado(this.cmb_estadoequipo.getSelectedItem() != null ? this.cmb_estadoequipo.getSelectedItem().toString() : "");
+
+        if (!this.txt_idequipo.getText().trim().isEmpty()) {
+            e_encontrado.setIdEquipo(Integer.parseInt(this.txt_idequipo.getText()));
+        }
+
+        ed.modificarEquipo(e_encontrado);
+
+        cargarTabla();
+        this.limpiarFormulario();
+        cambiarAModoNuevo();
+    }//GEN-LAST:event_bt_editarActionPerformed
+
+    private void tbl_equipoficinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_equipoficinaMouseClicked
+        int selectedRow = this.tbl_equipoficina.getSelectedRow();
+        if (selectedRow != -1) {
+            Object cellValue = this.tbl_equipoficina.getValueAt(selectedRow, 0);
+            Integer id_seleccionado;
+            try {
+                id_seleccionado = (Integer) cellValue;
+            } catch (ClassCastException ex) {
+                id_seleccionado = Integer.parseInt(cellValue.toString());
+            }
+            this.txt_idequipo.setText(id_seleccionado.toString());
+
+            EquipoOficina e_encontrado = null;
+            for (EquipoOficina e : ed.listarEquipos()) {
+                if (e.getIdEquipo() == id_seleccionado) {
+                    e_encontrado = e;
+                    break;
+                }
+            }
+
+            if (e_encontrado != null) {
+                this.txt_nombrequipo.setText(e_encontrado.getNombre());
+                this.cmb_tipo.setSelectedItem(e_encontrado.getTipo());
+                this.txt_marcaequipo.setText(e_encontrado.getMarca());
+                this.txt_modeloequipo.setText(e_encontrado.getModelo());
+                this.txt_identificador.setText(String.valueOf(e_encontrado.getNumeroIdentificador()));
+                this.cmb_estadoequipo.setSelectedItem(e_encontrado.getEstado());
+            }
+        }
+        cambiarAModoEdicion();
+    }//GEN-LAST:event_tbl_equipoficinaMouseClicked
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
+        cambiarAModoNuevo();
+    }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void bt_eliminarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarequipoActionPerformed
+        Integer id_seleccionado = Integer.parseInt(this.txt_idequipo.getText());
+        ed.eliminarEquipo(id_seleccionado);
+        cambiarAModoNuevo();
+        cargarTabla();
+        this.limpiarFormulario();
+    }//GEN-LAST:event_bt_eliminarequipoActionPerformed
+
+    public void cargarTabla() {
+        String col[] = {"id", "Nombre Equipo", "Tipo", "Marca", "Modelo", "Nro Identificador", "Estado"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        for (EquipoOficina e : ed.listarEquipos()) {
+            Object[] objs = {
+                e.getIdEquipo(),
+                e.getNombre(),
+                e.getTipo(),
+                e.getMarca(),
+                e.getModelo(),
+                e.getNumeroIdentificador(),
+                e.getEstado()
+            };
+            tableModel.addRow(objs);
+        }
+        tbl_equipoficina.setModel(tableModel);
+    }
+
+    public void cambiarAModoEdicion() {
+        // Habilita botones de edición y deshabilita guardar
+        try {
+            this.bt_cancelar.setEnabled(true);
+        } catch (Exception e) {
+        }
+        this.bt_eliminarequipo.setEnabled(true);
+        this.bt_editar.setEnabled(true);
+        this.bt_guardarequipo.setEnabled(false);
+    }
+
+    public void cambiarAModoNuevo() {
+        // Modo nuevo: habilita guardar, deshabilita editar/eliminar/cancelar y limpia formulario
+        try {
+            this.bt_cancelar.setEnabled(false);
+        } catch (Exception e) {
+        }
+        this.bt_eliminarequipo.setEnabled(false);
+        this.bt_editar.setEnabled(false);
+        this.bt_guardarequipo.setEnabled(true);
+        limpiarFormulario();
+    }
+
+    public void limpiarFormulario() {
+        // Limpiar campos del formulario usando tus variables
+        this.txt_idequipo.setText("");
+        this.txt_nombrequipo.setText("");
+        if (this.cmb_tipo.getItemCount() > 0) {
+            this.cmb_tipo.setSelectedIndex(0);
+        }
+        this.txt_marcaequipo.setText("");
+        this.txt_modeloequipo.setText("");
+        this.txt_identificador.setText("");
+        if (this.cmb_estadoequipo.getItemCount() > 0) {
+            this.cmb_estadoequipo.setSelectedIndex(0);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_cerrar;
+    private javax.swing.JButton bt_editar;
+    private javax.swing.JButton bt_eliminarequipo;
     private javax.swing.JButton bt_guardarequipo;
     private javax.swing.JComboBox<String> cmb_estadoequipo;
+    private javax.swing.JComboBox<String> cmb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane tbl_EquipoOficina50;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_equipoficina;
+    private javax.swing.JTextField txt_identificador;
     private javax.swing.JTextField txt_idequipo;
     private javax.swing.JTextField txt_marcaequipo;
     private javax.swing.JTextField txt_modeloequipo;
     private javax.swing.JTextField txt_nombrequipo;
-    private javax.swing.JTextField txt_tipo;
     // End of variables declaration//GEN-END:variables
 }

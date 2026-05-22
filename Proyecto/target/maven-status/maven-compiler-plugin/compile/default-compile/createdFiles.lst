@@ -3,6 +3,7 @@ com\mycompany\transporteshirata\Datos\ConductoDao.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$5.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$2.class
 com\mycompany\transporteshirata\GUI\Principal.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$4.class
 com\mycompany\transporteshirata\GUI\Principal$1.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor$2.class
@@ -14,6 +15,7 @@ com\mycompany\transporteshirata\GUI\Principal$4.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$1.class
 com\mycompany\transporteshirata\GUI\Principal$7.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal$2.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$3.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$3.class
 com\mycompany\transporteshirata\GUI\Principal$5.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$2.class
@@ -41,6 +43,7 @@ com\mycompany\transporteshirata\Logica\MantenimientoEquipoOficina.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$3.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$6.class
 com\mycompany\transporteshirata\Logica\Camion.class
 com\mycompany\transporteshirata\GUI\GuiLogin$nombreConductor.class
 com\mycompany\transporteshirata\Datos\Conexion.class
@@ -51,6 +54,7 @@ com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina.class
 com\mycompany\transporteshirata\GUI\Principal$3.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$4.class
+com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$5.class
 com\mycompany\transporteshirata\Datos\CamionDao.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje$2.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal$1.class

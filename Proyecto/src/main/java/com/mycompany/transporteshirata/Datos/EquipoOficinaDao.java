@@ -3,38 +3,114 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.transporteshirata.Datos;
+
 import com.mycompany.transporteshirata.Logica.EquipoOficina;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Nicolas
  */
 public class EquipoOficinaDao {
-    // Lista en memoria que simula la tabla EquipoOficina
-    private static List<EquipoOficina> listaEquipos = new ArrayList<>();
-    private static int contadorId = 1;
 
-    public void insertarEquipo(EquipoOficina equipo) {
-        equipo.setIdEquipo(contadorId++);
-        listaEquipos.add(equipo);
-    }
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
 
+    // Listar todos los equipos de oficina
     public List<EquipoOficina> listarEquipos() {
-        return new ArrayList<>(listaEquipos);
-    }
+        List<EquipoOficina> lista = new ArrayList<>();
+        String sql = "SELECT * FROM EquipoOficina";
 
-    public void eliminarEquipo(int id) {
-        listaEquipos.removeIf(eq -> eq.getIdEquipo() == id);
-    }
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
 
-    public void actualizarEquipo(EquipoOficina equipoActualizado) {
-        for (int i = 0; i < listaEquipos.size(); i++) {
-            if (listaEquipos.get(i).getIdEquipo() == equipoActualizado.getIdEquipo()) {
-                listaEquipos.set(i, equipoActualizado);
-                break;
+            while (rs.next()) {
+                EquipoOficina eq = new EquipoOficina();
+                eq.setIdEquipo(rs.getInt("idEquipo"));
+                eq.setNombre(rs.getString("nombre"));
+                eq.setTipo(rs.getString("tipo"));
+                eq.setMarca(rs.getString("marca"));
+                eq.setModelo(rs.getString("modelo"));
+                try {
+                    eq.setNumeroIdentificador(rs.getInt("identificador"));
+                } catch (Exception ex) {
+                    eq.setNumeroIdentificador(0);
+                }
+                eq.setEstado(rs.getString("estado"));
+
+                lista.add(eq);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar equipos: " + e.toString());
         }
+        return lista;
+    }
+
+    // Registrar nuevo equipo
+    public boolean registrarEquipo(EquipoOficina eq) {
+        String sql = "INSERT INTO EquipoOficina (nombre, tipo, marca, modelo, identificador, estado) VALUES (?, ?, ?, ?, ?,?)";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, eq.getNombre());
+            ps.setString(2, eq.getTipo());
+            ps.setString(3, eq.getMarca());
+            ps.setString(4, eq.getModelo());
+            ps.setInt(5, eq.getNumeroIdentificador());
+            ps.setString(6, eq.getEstado());
+
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar equipo: " + e.toString());
+            return false;
+        }
+    }
+    // Modificar equipo existente
+    public boolean modificarEquipo(EquipoOficina e) {
+    String sql = "UPDATE EquipoOficina SET nombre=?, tipo=?, marca=?, modelo=?, identificador=?, estado=? WHERE idEquipo=?";
+    try (Connection con = Conexion.getConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, e.getNombre());
+        ps.setString(2, e.getTipo());
+        ps.setString(3, e.getMarca());
+        ps.setString(4, e.getModelo());
+        if (e.getNumeroIdentificador() == 0) {
+            ps.setNull(5, java.sql.Types.INTEGER);
+        } else {
+            ps.setInt(5, e.getNumeroIdentificador());
+        }
+        ps.setString(6, e.getEstado());
+        ps.setInt(7, e.getIdEquipo());
+
+        ps.executeUpdate();
+        return true;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al modificar equipo: " + ex.toString());
+        return false;
+    }
+}
+    public boolean eliminarEquipo(int id) {
+    String sql = "DELETE FROM EquipoOficina WHERE idEquipo=?";
+    try {
+        con = Conexion.getConexion();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.execute();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar equipo: " + e.toString());
+        return false;
+    }
     }
 }

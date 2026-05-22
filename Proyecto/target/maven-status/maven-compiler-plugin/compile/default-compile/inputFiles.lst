@@ -1,25 +1,25 @@
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\CamionDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\ConductoDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\Conexion.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\EquipoOficinaDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\LoginDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoEquipoDao.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\ContraseñaAdmin.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiKilometraje.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLogin.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLoginPrincipal.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiMantenimiento.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarCamion.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarConductor.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\Principal.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\PrincipalConductor.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Camion.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Conductor.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\EquipoOficina.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Login.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Mantenimiento.java
-D:\NetBeans\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\MantenimientoEquipoOficina.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\CamionDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\ConductoDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\Conexion.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\EquipoOficinaDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\LoginDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoEquipoDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\ContraseñaAdmin.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiKilometraje.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLogin.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLoginPrincipal.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiMantenimiento.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarCamion.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarConductor.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\Principal.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\PrincipalConductor.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Camion.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Conductor.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\EquipoOficina.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Login.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Mantenimiento.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\MantenimientoEquipoOficina.java

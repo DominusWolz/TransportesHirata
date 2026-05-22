@@ -15,17 +15,19 @@ public class EquipoOficina {
     private String tipo;         
     private String marca;
     private String modelo;
+    private int numeroIdentificador;
     private String estado;  
     
     public EquipoOficina(){           
     }
     
-    public EquipoOficina(int idEquipo, String nombre, String tipo, String marca, String modelo, String estado){
+    public EquipoOficina(int idEquipo, String nombre, String tipo, String marca, String modelo,int numeroIdentificador, String estado){
         this.idEquipo = idEquipo;
         this.nombre = nombre;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
+        this.numeroIdentificador = numeroIdentificador;
         this.estado = estado;
         }
     
@@ -43,6 +45,10 @@ public class EquipoOficina {
     }
     public String getModelo() {
         return modelo; 
+    }
+    
+    public int getNumeroIdentificador() {
+        return numeroIdentificador;
     }
 
     public String getEstado() { 
@@ -63,6 +69,10 @@ public class EquipoOficina {
     }
     public void setModelo(String modelo) { 
         this.modelo = modelo ;
+    }
+    
+    public void setNumeroIdentificador(int numeroIdentificador){
+        this.numeroIdentificador = numeroIdentificador;
     }
     
     public void setEstado(String estado) { 
