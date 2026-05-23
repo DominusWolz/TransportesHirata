@@ -84,6 +84,7 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor.add(openMenuItem1);
 
+        openMenuItem4.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         openMenuItem4.setText("Registrar Equipos de Oficina");
         openMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +93,7 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor.add(openMenuItem4);
 
+        openMenu5.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         openMenu5.setText("Mantenimiento Equipos");
         openMenu5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

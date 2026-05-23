@@ -55,6 +55,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem4">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Equipos de Oficina"/>
               </Properties>
               <Events>
@@ -63,6 +66,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openMenu5">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Mantenimiento Equipos"/>
               </Properties>
               <Events>
