@@ -8,6 +8,7 @@ com\mycompany\transporteshirata\GUI\Principal$1.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor$2.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje$1.class
+com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$5.class
 com\mycompany\transporteshirata\GUI\ContraseñaAdmin.class
 com\mycompany\transporteshirata\Datos\MantenimientoEquipoDao.class
 com\mycompany\transporteshirata\GUI\PrincipalConductor$1.class
@@ -62,6 +63,7 @@ com\mycompany\transporteshirata\GUI\GuiKilometraje$2.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal$1.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$4.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$1.class
+com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$6.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$1.class
 com\mycompany\transporteshirata\Datos\LoginDao.class
 com\mycompany\transporteshirata\GUI\GuiLogin$2.class

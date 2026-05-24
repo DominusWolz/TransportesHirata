@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package com.mycompany.transporteshirata.GUI;
+
 import com.mycompany.transporteshirata.Datos.EquipoOficinaDao;
 import com.mycompany.transporteshirata.Datos.MantenimientoEquipoDao;
 import com.mycompany.transporteshirata.Logica.EquipoOficina;
@@ -13,13 +14,16 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicolas
  */
 public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
+
     EquipoOficinaDao ed = new EquipoOficinaDao();
     MantenimientoEquipoDao mantDao = new MantenimientoEquipoDao();
+
     /**
      * Creates new form GuiMantenimientoEquipos
      */
@@ -27,8 +31,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         initComponents();
         cargarComboEquipos();          // llena el combo con nombres
         cargarTablaMantenimientos();   // carga la tabla con los mantenimientos
-    }   
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +58,8 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         bt_registrar = new javax.swing.JButton();
         bt_cerrar = new javax.swing.JButton();
         bt_editar = new javax.swing.JButton();
+        bt_cancelar = new javax.swing.JButton();
+        bt_eliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -95,6 +100,20 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             }
         });
 
+        bt_cancelar.setText("Cancelar");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
+
+        bt_eliminar.setText("Eliminar");
+        bt_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_eliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,35 +126,41 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                         .addGap(151, 151, 151)
                         .addComponent(txt_fechaequipo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_descripcionman)
-                                        .addComponent(txt_observaciones)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel6)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(27, 27, 27)
-                                            .addComponent(bt_registrar)))
-                                    .addGap(57, 57, 57)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(bt_editar)
-                                        .addComponent(cmb_tipomanequipo, 0, 121, Short.MAX_VALUE)
-                                        .addComponent(cmb_equipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(bt_cerrar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_descripcionman)
+                                    .addComponent(txt_observaciones)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(bt_registrar)))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(bt_editar)
+                                    .addComponent(cmb_tipomanequipo, 0, 121, Short.MAX_VALUE)
+                                    .addComponent(cmb_equipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(bt_cerrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_cancelar)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(bt_eliminar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,8 +193,12 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_registrar)
                     .addComponent(bt_editar))
+                .addGap(18, 18, 18)
+                .addComponent(bt_eliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_cerrar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_cerrar)
+                    .addComponent(bt_cancelar))
                 .addContainerGap())
         );
 
@@ -199,7 +228,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -292,12 +321,13 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
-    
 
     private void cargarComboEquipos() {
         cmb_equipos.removeAllItems();
         List<EquipoOficina> lista = ed.listarEquipos();
-        if (lista == null) return;
+        if (lista == null) {
+            return;
+        }
         for (EquipoOficina e : lista) {
             cmb_equipos.addItem(e.getNombre());
         }
@@ -325,7 +355,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         }
         jTable1.setModel(tableModel);
     }//GEN-LAST:event_bt_registrarActionPerformed
-    
+
     public void limpiarFormulario() {
         if (this.cmb_equipos.getItemCount() > 0) {
             this.cmb_equipos.setSelectedIndex(0);
@@ -337,10 +367,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         this.jTable1.clearSelection();
         this.cmb_tipomanequipo.setSelectedIndex(0);
     }
-    
+
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed
 
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_bt_cerrarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -374,77 +404,113 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            cambiarAModoEdicion();
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
         // Verificamos que haya un ID seleccionado
-    String idText = jTextField1.getText().trim();
-    if (idText.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Seleccione un mantenimiento de la tabla para editar.");
-        return;
-    }
-
-    try {
-        int id = Integer.parseInt(idText);
-
-        MantenimientoEquipoOficina m = new MantenimientoEquipoOficina();
-        m.setIdMantenimiento(id);
-
-        // Fecha
-        if (txt_fechaequipo.getText().trim().isEmpty()) {
-            m.setFecha(LocalDate.now());
-        } else {
-            try {
-                m.setFecha(LocalDate.parse(txt_fechaequipo.getText().trim()));
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use YYYY-MM-DD.");
-                return;
-            }
-        }
-
-        // Tipo, descripción y observaciones
-        m.setTipo(cmb_tipomanequipo.getSelectedItem().toString());
-        m.setDescripcion(txt_descripcionman.getText());
-        m.setObservaciones(txt_observaciones.getText());
-
-        // Equipo
-        EquipoOficina equipoSeleccionado = null;
-        String nombreSel = (String) cmb_equipos.getSelectedItem();
-        List<EquipoOficina> lista = ed.listarEquipos();
-        if (lista != null) {
-            for (EquipoOficina e : lista) {
-                if (nombreSel.equals(e.getNombre())) {
-                    equipoSeleccionado = e;
-                    break;
-                }
-            }
-        }
-        if (equipoSeleccionado == null) {
-            JOptionPane.showMessageDialog(this, "No se pudo determinar el equipo. Seleccione uno válido.");
+        String idText = jTextField1.getText().trim();
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un mantenimiento de la tabla para editar.");
             return;
         }
-        m.setEquipo(equipoSeleccionado);
 
-        // Llamada al DAO para modificar
-        boolean ok = mantDao.modificarMantenimiento(m);
-        if (ok) {
-            JOptionPane.showMessageDialog(this, "✅ Mantenimiento editado correctamente.");
-            limpiarFormulario();
-            cargarTablaMantenimientos();
-        } else {
-            JOptionPane.showMessageDialog(this, "❌ No se pudo editar el mantenimiento.");
+        try {
+            int id = Integer.parseInt(idText);
+
+            MantenimientoEquipoOficina m = new MantenimientoEquipoOficina();
+            m.setIdMantenimiento(id);
+
+            // Fecha
+            if (txt_fechaequipo.getText().trim().isEmpty()) {
+                m.setFecha(LocalDate.now());
+            } else {
+                try {
+                    m.setFecha(LocalDate.parse(txt_fechaequipo.getText().trim()));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use YYYY-MM-DD.");
+                    return;
+                }
+            }
+
+            // Tipo, descripción y observaciones
+            m.setTipo(cmb_tipomanequipo.getSelectedItem().toString());
+            m.setDescripcion(txt_descripcionman.getText());
+            m.setObservaciones(txt_observaciones.getText());
+
+            // Equipo
+            EquipoOficina equipoSeleccionado = null;
+            String nombreSel = (String) cmb_equipos.getSelectedItem();
+            List<EquipoOficina> lista = ed.listarEquipos();
+            if (lista != null) {
+                for (EquipoOficina e : lista) {
+                    if (nombreSel.equals(e.getNombre())) {
+                        equipoSeleccionado = e;
+                        break;
+                    }
+                }
+            }
+            if (equipoSeleccionado == null) {
+                JOptionPane.showMessageDialog(this, "No se pudo determinar el equipo. Seleccione uno válido.");
+                return;
+            }
+            m.setEquipo(equipoSeleccionado);
+
+            // Llamada al DAO para modificar
+            boolean ok = mantDao.modificarMantenimiento(m);
+            if (ok) {
+                JOptionPane.showMessageDialog(this, "✅ Mantenimiento editado correctamente.");
+                limpiarFormulario();
+                cargarTablaMantenimientos();
+            } else {
+                JOptionPane.showMessageDialog(this, "❌ No se pudo editar el mantenimiento.");
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "ID inválido.");
         }
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "ID inválido.");
-    }
     }//GEN-LAST:event_bt_editarActionPerformed
-    
-    
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
+        cambiarAModoNuevo();
+    }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
+        Integer id_seleccionado = Integer.parseInt(this.jTextField1.getText());
+        mantDao.eliminarMantenimiento(id_seleccionado);
+        cambiarAModoNuevo();
+        cargarTablaMantenimientos();
+        this.limpiarFormulario();
+    }//GEN-LAST:event_bt_eliminarActionPerformed
+    public void cambiarAModoEdicion() {
+        // Habilita botones de edición y deshabilita guardar
+        try {
+            this.bt_cancelar.setEnabled(true);
+        } catch (Exception e) {
+        }
+        this.bt_eliminar.setEnabled(true);
+        this.bt_editar.setEnabled(true);
+        this.bt_registrar.setEnabled(false);
+    }
+
+    public void cambiarAModoNuevo() {
+        // Modo nuevo: habilita guardar, deshabilita editar/eliminar/cancelar y limpia formulario
+        try {
+            this.bt_cancelar.setEnabled(false);
+        } catch (Exception e) {
+        }
+        this.bt_eliminar.setEnabled(false);
+        this.bt_editar.setEnabled(false);
+        this.bt_registrar.setEnabled(true);
+        limpiarFormulario();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_cerrar;
     private javax.swing.JButton bt_editar;
+    private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_registrar;
     private javax.swing.JComboBox<String> cmb_equipos;
     private javax.swing.JComboBox<String> cmb_tipomanequipo;

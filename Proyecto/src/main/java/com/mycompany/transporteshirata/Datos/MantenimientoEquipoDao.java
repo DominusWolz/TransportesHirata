@@ -104,6 +104,19 @@ public class MantenimientoEquipoDao {
         JOptionPane.showMessageDialog(null, "Error al modificar mantenimiento: " + ex.toString());
         return false;
     }
+    }
+    public boolean eliminarMantenimiento(int idMantenimiento) {
+    String sql = "DELETE FROM MantenimientoEquipoOficina WHERE idMantenimiento=?";
+    try {
+        con = Conexion.getConexion();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, idMantenimiento);
+        int filas = ps.executeUpdate();
+        return filas > 0;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar mantenimiento: " + ex.toString());
+        return false;
+    }
 }
 }
 
