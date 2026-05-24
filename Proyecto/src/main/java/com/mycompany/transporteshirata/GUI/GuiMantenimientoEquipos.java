@@ -180,10 +180,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bt_editar)))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bt_eliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(117, 117, 117))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +220,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_registrar)
                     .addComponent(bt_editar))
-                .addGap(18, 18, 18)
-                .addComponent(bt_eliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_eliminar)
+                .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_cerrar)
                     .addComponent(bt_cancelar))
@@ -272,6 +272,16 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrarActionPerformed
+        if (txt_fechaequipo.getText().trim().isEmpty() ||
+        txt_descripcionman.getText().trim().isEmpty() ||
+        txt_observaciones.getText().trim().isEmpty() ||
+        cmb_tipomanequipo.getSelectedItem() == null ||
+        cmb_equipos.getSelectedItem() == null ||
+        cmb_estado.getSelectedItem() == null) {
+        
+        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
+        return;
+    }
         int fila = jTable1.getSelectedRow();
 
         if (cmb_equipos.getItemCount() == 0 || cmb_equipos.getSelectedIndex() < 0) {
@@ -458,7 +468,17 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
-        // Verificamos que haya un ID seleccionado
+        if (txt_fechaequipo.getText().trim().isEmpty() ||
+        txt_descripcionman.getText().trim().isEmpty() ||
+        txt_observaciones.getText().trim().isEmpty() ||
+        cmb_tipomanequipo.getSelectedItem() == null ||
+        cmb_equipos.getSelectedItem() == null ||
+        cmb_estado.getSelectedItem() == null) {
+        
+        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
+        return;
+    }
+// Verificamos que haya un ID seleccionado
         String idText = jTextField1.getText().trim();
         if (idText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un mantenimiento de la tabla para editar.");

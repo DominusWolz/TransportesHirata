@@ -241,7 +241,18 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarequipoActionPerformed
-    EquipoOficina eq = new EquipoOficina();
+        // Validar campos obligatorios
+    if (txt_nombrequipo.getText().trim().isEmpty() ||
+        txt_marcaequipo.getText().trim().isEmpty() ||
+        txt_modeloequipo.getText().trim().isEmpty() ||
+        txt_identificador.getText().trim().isEmpty() ||
+        cmb_tipo.getSelectedItem() == null ||
+        cmb_estadoequipo.getSelectedItem() == null) {
+        
+        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
+        return; // Detener ejecución si falta algo
+    }
+        EquipoOficina eq = new EquipoOficina();
         eq.setNombre(this.txt_nombrequipo.getText());
         eq.setTipo(this.cmb_tipo.getSelectedItem().toString());
         eq.setMarca(this.txt_marcaequipo.getText());
@@ -265,6 +276,17 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_cerrarActionPerformed
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+            // Validar campos obligatorios
+    if (txt_nombrequipo.getText().trim().isEmpty() ||
+        txt_marcaequipo.getText().trim().isEmpty() ||
+        txt_modeloequipo.getText().trim().isEmpty() ||
+        txt_identificador.getText().trim().isEmpty() ||
+        cmb_tipo.getSelectedItem() == null ||
+        cmb_estadoequipo.getSelectedItem() == null) {
+        
+        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
+        return; // Detener ejecución si falta algo
+    }
         Integer id_seleccionado = Integer.parseInt(this.txt_idequipo.getText());
         System.out.println("ID seleccionado: " + id_seleccionado);
 
