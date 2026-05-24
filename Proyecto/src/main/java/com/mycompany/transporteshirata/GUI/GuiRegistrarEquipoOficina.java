@@ -6,11 +6,8 @@ package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.EquipoOficinaDao;
 import com.mycompany.transporteshirata.Logica.EquipoOficina;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -245,17 +242,22 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
 
     private void bt_guardarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarequipoActionPerformed
     EquipoOficina eq = new EquipoOficina();
-    eq.setNombre(this.txt_nombrequipo.getText());
-    eq.setTipo(this.cmb_tipo.getSelectedItem().toString());
-    eq.setMarca(this.txt_marcaequipo.getText());
-    eq.setModelo(this.txt_modeloequipo.getText());
-    eq.setNumeroIdentificador(Integer.valueOf(this.txt_identificador.getText()));
-    eq.setEstado(this.cmb_estadoequipo.getSelectedItem().toString());
+        eq.setNombre(this.txt_nombrequipo.getText());
+        eq.setTipo(this.cmb_tipo.getSelectedItem().toString());
+        eq.setMarca(this.txt_marcaequipo.getText());
+        eq.setModelo(this.txt_modeloequipo.getText());
+        eq.setNumeroIdentificador(Integer.valueOf(this.txt_identificador.getText()));
+        eq.setEstado(this.cmb_estadoequipo.getSelectedItem().toString());
 
-    ed.registrarEquipo(eq);
-    cargarTabla();
-    JOptionPane.showMessageDialog(this, "✅ Equipo guardado exitosamente");
-    cambiarAModoNuevo();
+        ed.registrarEquipo(eq);
+        cargarTabla();
+        JOptionPane.showMessageDialog(this, "✅ Equipo guardado exitosamente");
+        cambiarAModoNuevo();
+
+        // Si la GUI de mantenimiento está abierta, recarga su combo para reflejar el nuevo estado
+        if (GuiMantenimientoEquipos.instancia != null) {
+            GuiMantenimientoEquipos.instancia.cargarComboEquipos();
+        }
     }//GEN-LAST:event_bt_guardarequipoActionPerformed
 
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed
@@ -295,6 +297,11 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         cargarTabla();
         this.limpiarFormulario();
         cambiarAModoNuevo();
+
+        // Si la GUI de mantenimiento está abierta, recarga su combo para reflejar el estado modificado
+        if (GuiMantenimientoEquipos.instancia != null) {
+            GuiMantenimientoEquipos.instancia.cargarComboEquipos();
+        }
     }//GEN-LAST:event_bt_editarActionPerformed
 
     private void tbl_equipoficinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_equipoficinaMouseClicked
@@ -339,6 +346,10 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         cambiarAModoNuevo();
         cargarTabla();
         this.limpiarFormulario();
+
+        if (GuiMantenimientoEquipos.instancia != null) {
+            GuiMantenimientoEquipos.instancia.cargarComboEquipos();
+        }
     }//GEN-LAST:event_bt_eliminarequipoActionPerformed
 
     public void cargarTabla() {
