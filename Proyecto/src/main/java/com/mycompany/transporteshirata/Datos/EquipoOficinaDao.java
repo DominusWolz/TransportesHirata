@@ -113,4 +113,64 @@ public class EquipoOficinaDao {
         return false;
     }
     }
+    // Validar duplicados por nombre (guardar)
+    public boolean existeNombre(String nombre) {
+        String sql = "SELECT COUNT(*) FROM EquipoOficina WHERE nombre = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar nombre: " + e.toString());
+        }
+        return false;
+    }
+
+    // Validar duplicados por nombre (editar, excluyendo el mismo id)
+    public boolean existeNombre(String nombre, int idEquipo) {
+        String sql = "SELECT COUNT(*) FROM EquipoOficina WHERE nombre = ? AND idEquipo <> ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setInt(2, idEquipo);
+            rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar nombre: " + e.toString());
+        }
+        return false;
+    }
+// Validar duplicados por identificador (guardar)
+    public boolean existeIdentificador(int identificador) {
+        String sql = "SELECT COUNT(*) FROM EquipoOficina WHERE identificador = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, identificador);
+            rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar identificador: " + e.toString());
+        }
+        return false;
+    }
+
+    // Validar duplicados por identificador (editar, excluyendo el mismo id)
+    public boolean existeIdentificador(int identificador, int idEquipo) {
+        String sql = "SELECT COUNT(*) FROM EquipoOficina WHERE identificador = ? AND idEquipo <> ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, identificador);
+            ps.setInt(2, idEquipo);
+            rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar identificador: " + e.toString());
+        }
+        return false;
+    }
 }

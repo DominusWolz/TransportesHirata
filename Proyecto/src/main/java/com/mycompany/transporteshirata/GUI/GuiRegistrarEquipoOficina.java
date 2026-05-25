@@ -241,7 +241,7 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_guardarequipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarequipoActionPerformed
-        // Validar campos obligatorios
+    // Validar campos obligatorios
     if (txt_nombrequipo.getText().trim().isEmpty() ||
         txt_marcaequipo.getText().trim().isEmpty() ||
         txt_modeloequipo.getText().trim().isEmpty() ||
@@ -250,25 +250,39 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         cmb_estadoequipo.getSelectedItem() == null) {
         
         JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
-        return; // Detener ejecución si falta algo
+        return;
     }
-        EquipoOficina eq = new EquipoOficina();
-        eq.setNombre(this.txt_nombrequipo.getText());
-        eq.setTipo(this.cmb_tipo.getSelectedItem().toString());
-        eq.setMarca(this.txt_marcaequipo.getText());
-        eq.setModelo(this.txt_modeloequipo.getText());
-        eq.setNumeroIdentificador(Integer.valueOf(this.txt_identificador.getText()));
-        eq.setEstado(this.cmb_estadoequipo.getSelectedItem().toString());
 
-        ed.registrarEquipo(eq);
-        cargarTabla();
-        JOptionPane.showMessageDialog(this, "✅ Equipo guardado exitosamente");
-        cambiarAModoNuevo();
+    String nombre = txt_nombrequipo.getText().trim();
+    int identificador = Integer.parseInt(txt_identificador.getText().trim());
 
-        // Si la GUI de mantenimiento está abierta, recarga su combo para reflejar el nuevo estado
-        if (GuiMantenimientoEquipos.instancia != null) {
-            GuiMantenimientoEquipos.instancia.cargarComboEquipos();
-        }
+    // Validar duplicados
+    if (ed.existeNombre(nombre)) {
+        JOptionPane.showMessageDialog(this, "⚠️ Ya existe un equipo con ese nombre");
+        return;
+    }
+    if (ed.existeIdentificador(identificador)) {
+        JOptionPane.showMessageDialog(this, "⚠️ Ya existe un equipo con ese número identificador");
+        return;
+    }
+
+    // Si pasa las validaciones, registrar
+    EquipoOficina eq = new EquipoOficina();
+    eq.setNombre(nombre);
+    eq.setTipo(cmb_tipo.getSelectedItem().toString());
+    eq.setMarca(txt_marcaequipo.getText());
+    eq.setModelo(txt_modeloequipo.getText());
+    eq.setNumeroIdentificador(identificador);
+    eq.setEstado(cmb_estadoequipo.getSelectedItem().toString());
+
+    ed.registrarEquipo(eq);
+    cargarTabla();
+    JOptionPane.showMessageDialog(this, "✅ Equipo guardado exitosamente");
+    cambiarAModoNuevo();
+
+    if (GuiMantenimientoEquipos.instancia != null) {
+        GuiMantenimientoEquipos.instancia.cargarComboEquipos();
+    }
     }//GEN-LAST:event_bt_guardarequipoActionPerformed
 
     private void bt_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cerrarActionPerformed
@@ -276,7 +290,7 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_cerrarActionPerformed
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
-            // Validar campos obligatorios
+    // Validar campos obligatorios
     if (txt_nombrequipo.getText().trim().isEmpty() ||
         txt_marcaequipo.getText().trim().isEmpty() ||
         txt_modeloequipo.getText().trim().isEmpty() ||
@@ -284,48 +298,57 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         cmb_tipo.getSelectedItem() == null ||
         cmb_estadoequipo.getSelectedItem() == null) {
         
-        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de guardar");
-        return; // Detener ejecución si falta algo
+        JOptionPane.showMessageDialog(this, "⚠️ Debes completar todos los campos antes de editar");
+        return;
     }
-        Integer id_seleccionado = Integer.parseInt(this.txt_idequipo.getText());
-        System.out.println("ID seleccionado: " + id_seleccionado);
 
-        EquipoOficina e_encontrado = null;
-        for (EquipoOficina e : ed.listarEquipos()) {
-            if (e.getIdEquipo() == id_seleccionado) {
-                e_encontrado = e;
-                break;
-            }
+    Integer id_seleccionado = Integer.parseInt(this.txt_idequipo.getText());
+    String nombre = txt_nombrequipo.getText().trim();
+    int identificador = Integer.parseInt(txt_identificador.getText().trim());
+
+    // Validar duplicados en otros equipos
+    if (ed.existeNombre(nombre, id_seleccionado)) {
+        JOptionPane.showMessageDialog(this, "⚠️ Ya existe otro equipo con ese nombre");
+        return;
+    }
+    if (ed.existeIdentificador(identificador, id_seleccionado)) {
+        JOptionPane.showMessageDialog(this, "⚠️ Ya existe otro equipo con ese número identificador");
+        return;
+    }
+
+    // Buscar equipo
+    EquipoOficina e_encontrado = null;
+    for (EquipoOficina e : ed.listarEquipos()) {
+        if (e.getIdEquipo() == id_seleccionado) {
+            e_encontrado = e;
+            break;
         }
+    }
 
-        if (e_encontrado == null) {
-            JOptionPane.showMessageDialog(this, "Equipo no encontrado");
-            return;
-        }
+    if (e_encontrado == null) {
+        JOptionPane.showMessageDialog(this, "Equipo no encontrado");
+        return;
+    }
 
-        e_encontrado.setNombre(this.txt_nombrequipo.getText());
-        e_encontrado.setTipo(this.cmb_tipo.getSelectedItem() != null ? this.cmb_tipo.getSelectedItem().toString() : "");
-        e_encontrado.setMarca(this.txt_marcaequipo.getText());
-        e_encontrado.setModelo(this.txt_modeloequipo.getText());
-        e_encontrado.setNumeroIdentificador(Integer.parseInt(this.txt_identificador.getText()));
-        e_encontrado.setEstado(this.cmb_estadoequipo.getSelectedItem() != null ? this.cmb_estadoequipo.getSelectedItem().toString() : "");
+    // Actualizar datos
+    e_encontrado.setNombre(nombre);
+    e_encontrado.setTipo(cmb_tipo.getSelectedItem().toString());
+    e_encontrado.setMarca(txt_marcaequipo.getText());
+    e_encontrado.setModelo(txt_modeloequipo.getText());
+    e_encontrado.setNumeroIdentificador(identificador);
+    e_encontrado.setEstado(cmb_estadoequipo.getSelectedItem().toString());
 
-        if (!this.txt_idequipo.getText().trim().isEmpty()) {
-            e_encontrado.setIdEquipo(Integer.parseInt(this.txt_idequipo.getText()));
-        }
+    ed.modificarEquipo(e_encontrado);
 
-        ed.modificarEquipo(e_encontrado);
-        
-        JOptionPane.showMessageDialog(this, "✅ Equipo editado correctamente");
+    JOptionPane.showMessageDialog(this, "✅ Equipo editado correctamente");
 
-        cargarTabla();
-        this.limpiarFormulario();
-        cambiarAModoNuevo();
+    cargarTabla();
+    limpiarFormulario();
+    cambiarAModoNuevo();
 
-        // Si la GUI de mantenimiento está abierta, recarga su combo para reflejar el estado modificado
-        if (GuiMantenimientoEquipos.instancia != null) {
-            GuiMantenimientoEquipos.instancia.cargarComboEquipos();
-        }
+    if (GuiMantenimientoEquipos.instancia != null) {
+        GuiMantenimientoEquipos.instancia.cargarComboEquipos();
+    }
     }//GEN-LAST:event_bt_editarActionPerformed
 
     private void tbl_equipoficinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_equipoficinaMouseClicked
