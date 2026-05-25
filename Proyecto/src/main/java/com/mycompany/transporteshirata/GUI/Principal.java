@@ -245,6 +245,24 @@ public class Principal extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_openMenu5ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        try {
+            // No ocultar la ventana principal
+            GuiSoftwareEquipo v = new GuiSoftwareEquipo();
+            desktopPane.add(v);
+            v.setVisible(true);
+            try {
+                v.setSelected(true);
+            } catch (java.beans.PropertyVetoException ex) {
+                /* ignorar */ }
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error al abrir resgistro: " + ex.toString(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }
     /**
      * @param args the command line arguments
      */
