@@ -123,8 +123,8 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_idequipo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
@@ -315,6 +315,8 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
         }
 
         ed.modificarEquipo(e_encontrado);
+        
+        JOptionPane.showMessageDialog(this, "✅ Equipo editado correctamente");
 
         cargarTabla();
         this.limpiarFormulario();
@@ -416,7 +418,7 @@ public class GuiRegistrarEquipoOficina extends javax.swing.JInternalFrame {
     }
 
     public void limpiarFormulario() {
-        // Limpiar campos del formulario usando tus variables
+        // Limpiar campos del formulario
         this.txt_idequipo.setText("");
         this.txt_nombrequipo.setText("");
         if (this.cmb_tipo.getItemCount() > 0) {

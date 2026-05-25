@@ -47,7 +47,7 @@ CREATE TABLE EquipoOficina (
 );
 select * from mantenimientoequipooficina;
 DROP TABLE IF EXISTS `mantenimientoequipooficina`;
--- Tabla de mantenimientos ligada a la tabla EquipoOficina que ya definiste
+-- Tabla de mantenimientos ligada a la tabla EquipoOficina
 CREATE TABLE MantenimientoEquipoOficina (
   idMantenimiento INT AUTO_INCREMENT PRIMARY KEY,
   fecha DATE NOT NULL,

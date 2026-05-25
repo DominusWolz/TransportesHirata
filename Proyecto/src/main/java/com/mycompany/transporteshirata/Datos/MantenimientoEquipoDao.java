@@ -118,5 +118,44 @@ public class MantenimientoEquipoDao {
         return false;
     }
 }
+    public MantenimientoEquipoOficina buscarPorId(int idMantenimiento) {
+    String sql = "SELECT m.*, e.nombre, e.tipo AS tipoEquipo, e.marca, e.modelo, e.identificador, e.estado "
+               + "FROM MantenimientoEquipoOficina m INNER JOIN EquipoOficina e ON m.idEquipo = e.idEquipo "
+               + "WHERE m.idMantenimiento = ?";
+    try {
+        con = Conexion.getConexion();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, idMantenimiento);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            MantenimientoEquipoOficina m = new MantenimientoEquipoOficina();
+            m.setIdMantenimiento(rs.getInt("idMantenimiento"));
+            java.sql.Date sqlDate = rs.getDate("fecha");
+            if (sqlDate != null) {
+                m.setFecha(sqlDate.toLocalDate());
+            }
+            m.setTipo(rs.getString("tipo"));
+            m.setDescripcion(rs.getString("descripcion"));
+            m.setObservaciones(rs.getString("observaciones"));
+
+            EquipoOficina e = new EquipoOficina();
+            e.setIdEquipo(rs.getInt("idEquipo"));
+            e.setNombre(rs.getString("nombre"));
+            e.setTipo(rs.getString("tipoEquipo"));
+            e.setMarca(rs.getString("marca"));
+            e.setModelo(rs.getString("modelo"));
+            try { e.setNumeroIdentificador(rs.getInt("identificador")); } catch (Exception ex) {}
+            e.setEstado(rs.getString("estado"));
+
+            m.setEquipo(e);
+            return m;
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar mantenimiento: " + ex.toString());
+    }
+    return null;
+}
+    
 }
 

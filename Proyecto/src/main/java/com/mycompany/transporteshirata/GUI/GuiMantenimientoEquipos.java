@@ -62,6 +62,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         cmb_estado = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txt_buscar = new javax.swing.JTextField();
+        bt_refrescar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -130,60 +133,81 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Estado");
 
+        jLabel8.setText("Buscar por ID:");
+
+        bt_refrescar.setText("Buscar");
+        bt_refrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_refrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_eliminar)
+                .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(151, 151, 151)
-                        .addComponent(txt_fechaequipo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addGap(151, 151, 151)
+                                .addComponent(txt_fechaequipo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(bt_cerrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bt_cancelar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_descripcionman)
-                                    .addComponent(txt_observaciones)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6))
-                                .addGap(57, 57, 57)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmb_tipomanequipo, 0, 121, Short.MAX_VALUE)
-                                    .addComponent(cmb_equipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bt_cerrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_cancelar))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(147, 147, 147)
+                                        .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(bt_registrar)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(bt_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(bt_editar))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(bt_registrar))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(106, 106, 106)
-                                .addComponent(cmb_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bt_editar)))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_eliminar)
-                .addGap(117, 117, 117))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_descripcionman)
+                                        .addComponent(txt_observaciones)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel6))
+                                    .addGap(57, 57, 57)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cmb_tipomanequipo, 0, 121, Short.MAX_VALUE)
+                                        .addComponent(cmb_equipos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,13 +240,18 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(60, 60, 60)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_registrar)
                     .addComponent(bt_editar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_eliminar)
-                .addGap(68, 68, 68)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_refrescar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_cerrar)
                     .addComponent(bt_cancelar))
@@ -255,7 +284,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1145, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -307,7 +336,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             m.setDescripcion(txt_descripcionman.getText());
             m.setObservaciones(txt_observaciones.getText());
 
-            // Equipo: buscar por nombre (como lo tenías)
+            // Equipo: buscar por nombre
             EquipoOficina equipoSeleccionado = null;
             String nombreSel = (String) cmb_equipos.getSelectedItem();
             if (nombreSel != null) {
@@ -333,10 +362,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             if (cmb_estado.getSelectedItem() != null) {
                 String nuevoEstado = cmb_estado.getSelectedItem().toString();
                 equipoSeleccionado.setEstado(nuevoEstado);
-                ed.modificarEquipo(equipoSeleccionado); // persisto el cambio de estado
+                ed.modificarEquipo(equipoSeleccionado);
             }
 
-            // Si jTextField1 (ID) está vacío -> insertar; si tiene valor -> modificar
             String idText = jTextField1.getText().trim();
             if (idText.isEmpty()) {
                 boolean ok = mantDao.registrarMantenimiento(m);
@@ -414,7 +442,6 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         this.jTextField1.setText("");
         this.jTable1.clearSelection();
         this.cmb_tipomanequipo.setSelectedIndex(0);
-        // opcional: dejar cmb_estado en primer item
         
     }
 
@@ -454,7 +481,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 }
             }
 
-            // sincronizar cmb_estado con el estado del equipo mostrado en la tabla (columna 6)
+            // sincronizar cmb_estado con el estado del equipo mostrado en la tabla
             Object estadoObj = jTable1.getValueAt(fila, 6);
             if (estadoObj != null) {
                 String estado = estadoObj.toString();
@@ -566,6 +593,59 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private void cmb_equiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_equiposActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_equiposActionPerformed
+
+    private void bt_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_refrescarActionPerformed
+    String criterio = txt_buscar.getText().trim();
+    if (criterio.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese un ID o Nombre de equipo para buscar.");
+        return;
+    }
+
+    DefaultTableModel tableModel = new DefaultTableModel(
+        new String[]{"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo", "Estado"}, 0);
+
+    try {
+        // Si es número -> buscar por ID
+        int id = Integer.parseInt(criterio);
+        MantenimientoEquipoOficina m = mantDao.buscarPorId(id);
+        if (m != null) {
+            tableModel.addRow(new Object[]{
+                m.getIdMantenimiento(),
+                m.getFecha() != null ? m.getFecha().toString() : "",
+                m.getTipo(),
+                m.getDescripcion(),
+                m.getObservaciones(),
+                m.getEquipo() != null ? m.getEquipo().getNombre() : "",
+                m.getEquipo() != null ? m.getEquipo().getEstado() : ""
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró mantenimiento con ID " + id);
+        }
+    } catch (NumberFormatException ex) {
+        // Si no es número -> buscar por nombre usando listarMantenimientos
+        List<MantenimientoEquipoOficina> lista = mantDao.listarMantenimientos();
+        int encontrados = 0;
+        for (MantenimientoEquipoOficina m : lista) {
+            if (m.getEquipo() != null && m.getEquipo().getNombre().equalsIgnoreCase(criterio)) {
+                tableModel.addRow(new Object[]{
+                    m.getIdMantenimiento(),
+                    m.getFecha() != null ? m.getFecha().toString() : "",
+                    m.getTipo(),
+                    m.getDescripcion(),
+                    m.getObservaciones(),
+                    m.getEquipo().getNombre(),
+                    m.getEquipo().getEstado()
+                });
+                encontrados++;
+            }
+        }
+        if (encontrados == 0) {
+            JOptionPane.showMessageDialog(this, "No se encontró mantenimiento para el equipo con nombre: " + criterio);
+        }
+    }
+
+    jTable1.setModel(tableModel);
+    }//GEN-LAST:event_bt_refrescarActionPerformed
     public void cambiarAModoEdicion() {
         // Habilita botones de edición y deshabilita guardar
         try {
@@ -594,6 +674,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_cerrar;
     private javax.swing.JButton bt_editar;
     private javax.swing.JButton bt_eliminar;
+    private javax.swing.JButton bt_refrescar;
     private javax.swing.JButton bt_registrar;
     private javax.swing.JComboBox<String> cmb_equipos;
     private javax.swing.JComboBox<String> cmb_estado;
@@ -605,10 +686,12 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_descripcionman;
     private javax.swing.JTextField txt_fechaequipo;
     private javax.swing.JTextField txt_observaciones;

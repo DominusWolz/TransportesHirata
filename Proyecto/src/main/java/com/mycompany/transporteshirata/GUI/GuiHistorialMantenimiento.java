@@ -112,6 +112,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar por patente");
 
+        txt_buscar.addActionListener(this::txt_buscarActionPerformed);
+
         bt_buscar.setText("Buscar");
         bt_buscar.addActionListener(this::bt_buscarActionPerformed);
 
@@ -336,6 +338,10 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         limpiarCajas();
         tbl_historial.clearSelection();
     }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_buscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

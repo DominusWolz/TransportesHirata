@@ -2,6 +2,7 @@ com\mycompany\transporteshirata\Datos\MantenimientoDao.class
 com\mycompany\transporteshirata\Datos\ConductoDao.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$5.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$2.class
+com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$9.class
 com\mycompany\transporteshirata\GUI\Principal.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$4.class
 com\mycompany\transporteshirata\GUI\Principal$1.class
