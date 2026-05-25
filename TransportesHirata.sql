@@ -57,7 +57,6 @@ CREATE TABLE MantenimientoEquipoOficina (
     INDEX idx_idEquipo (idEquipo)
 );
 
--- ── REQUERIMIENTO 7: Tabla SoftwareEquipo ────────────────────────────────────
 CREATE TABLE SoftwareEquipo (
     idSoftware         INT AUTO_INCREMENT PRIMARY KEY,
     idEquipo           INT          NOT NULL,
@@ -69,7 +68,6 @@ CREATE TABLE SoftwareEquipo (
     FOREIGN KEY (idEquipo) REFERENCES EquipoOficina(idEquipo) ON DELETE CASCADE
 );
 
--- ── Datos de prueba ──────────────────────────────────────────────────────────
 INSERT INTO Conductor (rut, nombre, licencia, telefono, clave) VALUES
 ('12345678-9', 'Carlos Hirata',  'A2', '+56912345678', '1234'),
 ('98765432-1', 'Ana González',   'B',  '+56987654321', '1234'),
