@@ -17,6 +17,7 @@ com\mycompany\transporteshirata\GUI\Principal$4.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$1.class
 com\mycompany\transporteshirata\GUI\Principal$7.class
 com\mycompany\transporteshirata\GUI\GuiLoginPrincipal$2.class
+com\mycompany\transporteshirata\GUI\GuiSoftwareEquipo$1.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$3.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$3.class
 com\mycompany\transporteshirata\GUI\Principal$5.class
@@ -25,6 +26,7 @@ com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$3.class
 com\mycompany\transporteshirata\GUI\Principal$8.class
 com\mycompany\transporteshirata\Logica\EquipoOficina.class
+com\mycompany\transporteshirata\GUI\GuiSoftwareEquipo$2.class
 com\mycompany\transporteshirata\GUI\GuiLogin.class
 com\mycompany\transporteshirata\GUI\ContraseñaAdmin$1.class
 com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento$1.class
@@ -32,10 +34,12 @@ com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$1.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor.class
 com\mycompany\transporteshirata\Logica\Mantenimiento.class
 com\mycompany\transporteshirata\Logica\Login.class
+com\mycompany\transporteshirata\GUI\Principal$11.class
 com\mycompany\transporteshirata\Logica\Conductor.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$2.class
+com\mycompany\transporteshirata\Logica\SoftwareEquipo.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$7.class
 com\mycompany\transporteshirata\GUI\Principal$10.class
 com\mycompany\transporteshirata\GUI\Principal$6.class
@@ -44,6 +48,8 @@ com\mycompany\transporteshirata\GUI\Principal$9.class
 com\mycompany\transporteshirata\GUI\GuiKilometraje.class
 com\mycompany\transporteshirata\GUI\Principal$2.class
 com\mycompany\transporteshirata\GUI\GuiLogin$1.class
+com\mycompany\transporteshirata\Datos\SoftwareEquipoDao.class
+com\mycompany\transporteshirata\GUI\GuiSoftwareEquipo.class
 com\mycompany\transporteshirata\Logica\MantenimientoEquipoOficina.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarConductor$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarCamion$3.class

@@ -64,17 +64,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItem4ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="openMenu5">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="3"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Mantenimiento Equipos"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenu5ActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -119,6 +108,28 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="openMenu5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mantenimiento Equipos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenu5ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Software Equipos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openMenuItem3">

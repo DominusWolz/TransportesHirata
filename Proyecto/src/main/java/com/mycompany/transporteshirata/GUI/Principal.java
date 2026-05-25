@@ -7,7 +7,6 @@ package com.mycompany.transporteshirata.GUI;
 import javax.swing.JFrame;
 import com.mycompany.transporteshirata.GUI.GuiRegistrarEquipoOficina;
 
-
 /**
  *
  * @author danie
@@ -21,6 +20,10 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("     \n     Principal     \n     ");
+        openMenuItem.setVisible(false);   // Registrar Camion
+        openMenuItem1.setVisible(false);  // Registrar Conductor
+        bt_mantenimiento.setVisible(false); // Hacer mantenimiento
+        jMenuItem1.setVisible(false);
 
     }
 
@@ -41,11 +44,12 @@ public class Principal extends javax.swing.JFrame {
         openMenuItem = new javax.swing.JMenuItem();
         openMenuItem1 = new javax.swing.JMenuItem();
         openMenuItem4 = new javax.swing.JMenuItem();
-        openMenu5 = new javax.swing.JMenuItem();
         openMenuItem2 = new javax.swing.JMenuItem();
         bt_conductor1 = new javax.swing.JMenu();
         bt_mantenimiento = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        openMenu5 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         openMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
@@ -65,7 +69,6 @@ public class Principal extends javax.swing.JFrame {
         bt_conductor.setFont(new java.awt.Font("Sitka Text", 1, 24)); // NOI18N
 
         openMenuItem.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        openMenuItem.setMnemonic('o');
         openMenuItem.setText("Registrar camion");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +78,6 @@ public class Principal extends javax.swing.JFrame {
         bt_conductor.add(openMenuItem);
 
         openMenuItem1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        openMenuItem1.setMnemonic('o');
         openMenuItem1.setText("Registrar conductor");
         openMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,17 +95,7 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor.add(openMenuItem4);
 
-        openMenu5.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        openMenu5.setText("Mantenimiento Equipos");
-        openMenu5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openMenu5ActionPerformed(evt);
-            }
-        });
-        bt_conductor.add(openMenu5);
-
         openMenuItem2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        openMenuItem2.setMnemonic('o');
         openMenuItem2.setText("Volver");
         openMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +111,6 @@ public class Principal extends javax.swing.JFrame {
         bt_conductor1.setFont(new java.awt.Font("Sitka Text", 1, 24)); // NOI18N
 
         bt_mantenimiento.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        bt_mantenimiento.setMnemonic('o');
         bt_mantenimiento.setText("Hacer mantenimiento");
         bt_mantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,8 +128,25 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor1.add(jMenuItem1);
 
+        openMenu5.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        openMenu5.setText("Mantenimiento Equipos");
+        openMenu5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenu5ActionPerformed(evt);
+            }
+        });
+        bt_conductor1.add(openMenu5);
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jMenuItem3.setText("Software Equipos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        bt_conductor1.add(jMenuItem3);
+
         openMenuItem3.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        openMenuItem3.setMnemonic('o');
         openMenuItem3.setText("Volver");
         openMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,62 +198,65 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            this.setVisible(false);
-            GuiLoginPrincipal p = new GuiLoginPrincipal();
-            p.setVisible(true);
+        this.setVisible(false);
+        GuiLoginPrincipal p = new GuiLoginPrincipal();
+        p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void openMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem2ActionPerformed
-            this.setVisible(false);
-            GuiLoginPrincipal p = new GuiLoginPrincipal();
-            p.setVisible(true);
+        this.setVisible(false);
+        GuiLoginPrincipal p = new GuiLoginPrincipal();
+        p.setVisible(true);
     }//GEN-LAST:event_openMenuItem2ActionPerformed
 
     private void openMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem3ActionPerformed
-            this.setVisible(false);
-            GuiLoginPrincipal p = new GuiLoginPrincipal();
-            p.setVisible(true);      
+        this.setVisible(false);
+        GuiLoginPrincipal p = new GuiLoginPrincipal();
+        p.setVisible(true);
     }//GEN-LAST:event_openMenuItem3ActionPerformed
 
     private void openMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem4ActionPerformed
-    try {
-        // No ocultar la ventana principal
-        // this.setVisible(false);  // <-- eliminar o comentar
-
-        GuiRegistrarEquipoOficina v = new GuiRegistrarEquipoOficina();
-        desktopPane.add(v);
-        v.setVisible(true);
         try {
-            v.setSelected(true);
-        } catch (java.beans.PropertyVetoException ex) {
-            // no crítico, solo intento seleccionar
+            // No ocultar la ventana principal
+            // this.setVisible(false);  // <-- eliminar o comentar
+
+            GuiRegistrarEquipoOficina v = new GuiRegistrarEquipoOficina();
+            desktopPane.add(v);
+            v.setVisible(true);
+            try {
+                v.setSelected(true);
+            } catch (java.beans.PropertyVetoException ex) {
+                // no crítico, solo intento seleccionar
+            }
+        } catch (Exception ex) {
+            // Mostrar el error para depuración
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error al abrir Registrar Equipos: " + ex.toString(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
-    } catch (Exception ex) {
-        // Mostrar el error para depuración
-        javax.swing.JOptionPane.showMessageDialog(this,
-            "Error al abrir Registrar Equipos: " + ex.toString(),
-            "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    }
 
     }//GEN-LAST:event_openMenuItem4ActionPerformed
 
     private void openMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenu5ActionPerformed
         try {
-        // No ocultar la ventana principal
-        GuiMantenimientoEquipos v = new GuiMantenimientoEquipos();
-        desktopPane.add(v);
-        v.setVisible(true);
-        try { v.setSelected(true); } catch (java.beans.PropertyVetoException ex) { /* ignorar */ }
-    } catch (Exception ex) {
-        javax.swing.JOptionPane.showMessageDialog(this,
-            "Error al abrir Mantenimiento: " + ex.toString(),
-            "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    }
+            // No ocultar la ventana principal
+            GuiMantenimientoEquipos v = new GuiMantenimientoEquipos();
+            desktopPane.add(v);
+            v.setVisible(true);
+            try {
+                v.setSelected(true);
+            } catch (java.beans.PropertyVetoException ex) {
+                /* ignorar */ }
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error al abrir Mantenimiento: " + ex.toString(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_openMenu5ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         try {
             // No ocultar la ventana principal
             GuiSoftwareEquipo v = new GuiSoftwareEquipo();
@@ -262,7 +273,8 @@ public class Principal extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         // TODO add your handling code here:
-    }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -306,6 +318,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenu5;
     private javax.swing.JMenuItem openMenuItem;
