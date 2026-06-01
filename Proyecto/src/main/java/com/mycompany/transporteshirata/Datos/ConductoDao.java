@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author pccas
@@ -39,7 +38,7 @@ public class ConductoDao {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar conductores: " + e.toString());
+            Mensajes.mostrarError("Error al listar conductores: " + e.toString());
         }
         return lista;
     }
@@ -59,7 +58,7 @@ public class ConductoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar : " + e.toString());
+            Mensajes.mostrarError("Error al registrar: " + e.toString());
             return false;
     }
     }
@@ -79,7 +78,7 @@ public class ConductoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.toString());
+            Mensajes.mostrarError("Error al modificar: " + e.toString());
             return false;
         }
     }
@@ -94,14 +93,12 @@ public class ConductoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se puede eliminar. Probablemente tiene un camión asignado.");
+            Mensajes.mostrarError("No se puede eliminar. Probablemente tiene un camion asignado.");
             return false;
         }
     }
 
-    public void create(Conductor con) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
     public List<Conductor> listarConductoresCbm() {
         List<Conductor> lista = new ArrayList<>();
         String sql = "SELECT * FROM Conductor";
@@ -116,7 +113,7 @@ public class ConductoDao {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar conductores: " + e.toString());
+            Mensajes.mostrarError("Error al listar conductores: " + e.toString());
         }
         return lista;
     }

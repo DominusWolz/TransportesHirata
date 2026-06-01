@@ -89,6 +89,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         bt_editar = new javax.swing.JButton();
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txt_desc = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -112,14 +114,14 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar por patente");
 
-        txt_buscar.addActionListener(this::txt_buscarActionPerformed);
-
         bt_buscar.setText("Buscar");
+        bt_buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_buscar.addActionListener(this::bt_buscarActionPerformed);
 
         jLabel2.setText("ID");
 
         bt_refrescar.setText("Ver Todos");
+        bt_refrescar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bt_refrescar.addActionListener(this::bt_refrescarActionPerformed);
 
         txt_id.setEditable(false);
@@ -130,6 +132,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         jLabel4.setText("Fecha");
 
         jLabel5.setText("Kilometraje Mantenimiento");
+
+        txt_fecha.setEditable(false);
 
         txt_camion.setEditable(false);
 
@@ -148,13 +152,23 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         bt_cancelar.setText("Cancelar");
         bt_cancelar.addActionListener(this::bt_cancelarActionPerformed);
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Descripcion");
+
+        txt_desc.setBackground(new java.awt.Color(204, 255, 255));
+        txt_desc.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        txt_desc.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_desc.setToolTipText("");
+        txt_desc.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txt_desc.addActionListener(this::txt_descActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -179,9 +193,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(44, 44, 44)
-                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bt_refrescar))
+                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
@@ -191,36 +203,41 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel4)
                                             .addGap(24, 24, 24)
                                             .addComponent(txt_fecha))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel1)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txt_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                                        .addComponent(bt_buscar, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txt_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(bt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(bt_refrescar)
+                                                    .addGap(0, 0, Short.MAX_VALUE))))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_kilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_kilometraje, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_desc))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_buscar)
                     .addComponent(bt_refrescar))
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,7 +267,13 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
                 .addComponent(bt_eliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_cancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_desc))
         );
 
         pack();
@@ -267,6 +290,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
             txt_fecha.setText(tbl_historial.getValueAt(fila, 1).toString());
             cmb_tipo.setSelectedItem(tbl_historial.getValueAt(fila, 2).toString());
             txt_descripcion.setText(tbl_historial.getValueAt(fila, 3).toString());
+            txt_desc.setText(tbl_historial.getValueAt(fila, 3).toString());
             txt_kilometraje.setText(tbl_historial.getValueAt(fila, 4).toString());
             txt_camion.setText(tbl_historial.getValueAt(fila, 5).toString());
         }
@@ -284,35 +308,36 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_refrescarActionPerformed
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        // RE-3: Validar que haya un registro seleccionado
         if (txt_id.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un registro de la tabla para editar.");
             return;
         }
+        // RE-3 + RE-2: Validar que el tipo no sea la opción en blanco
+        String tipoSeleccionado = cmb_tipo.getSelectedItem().toString().trim();
+        if (tipoSeleccionado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de mantenimiento válido (Preventivo o Correctivo).");
+            return;
+        }
+        // RE-3: Bug corregido — toda la lógica dentro del try-catch, sin código duplicado afuera
         try {
-            
             Mantenimiento m = new Mantenimiento();
             m.setIdMantenimiento(Integer.parseInt(txt_id.getText()));
             m.setFecha(LocalDate.parse(txt_fecha.getText()));
-            m.setTipo(cmb_tipo.getSelectedItem().toString());
-            m.setDescripcion(txt_descripcion.getText());
+            m.setTipo(tipoSeleccionado);
+            // Usa txt_desc (campo editable con estilo) como fuente de la descripción
+            String descripcion = txt_desc.getText().trim().isEmpty() ? txt_descripcion.getText() : txt_desc.getText();
+            m.setDescripcion(descripcion);
             m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
 
-            
+            MantenimientoDao mDao = new MantenimientoDao();
+            if (mDao.modificarDetallesMantenimiento(m)) {
+                JOptionPane.showMessageDialog(this, "✅ Registro actualizado correctamente.");
+                cargarTabla(txt_buscar.getText());
+                limpiarCajas();
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato.");
-        }
-        Mantenimiento m = new Mantenimiento();
-        m.setIdMantenimiento(Integer.parseInt(txt_id.getText()));
-        m.setFecha(LocalDate.parse(txt_fecha.getText()));
-        m.setTipo(cmb_tipo.getSelectedItem().toString());
-        m.setDescripcion(txt_descripcion.getText());
-        m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
-
-        MantenimientoDao mDao = new MantenimientoDao();
-        if (mDao.modificarDetallesMantenimiento(m)) {
-            JOptionPane.showMessageDialog(this, "✅ Registro actualizado correctamente.");
-            cargarTabla(txt_buscar.getText()); 
-            limpiarCajas();
+            JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato: " + e.getMessage());
         }
     }//GEN-LAST:event_bt_editarActionPerformed
 
@@ -339,9 +364,9 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
         tbl_historial.clearSelection();
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
-    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
+    private void txt_descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_buscarActionPerformed
+    }//GEN-LAST:event_txt_descActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -358,10 +383,12 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_historial;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_camion;
+    private javax.swing.JTextField txt_desc;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_id;

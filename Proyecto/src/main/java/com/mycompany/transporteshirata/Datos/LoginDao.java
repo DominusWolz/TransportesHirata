@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  * /**
@@ -40,7 +39,7 @@ public class LoginDao {
                 return contrasenaAlmacenada.equals(contrasenaIngresada);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al validar credenciales: " + e.toString());
+            Mensajes.mostrarError("Error al validar credenciales: " + e.toString());
         }
         return false;
     }

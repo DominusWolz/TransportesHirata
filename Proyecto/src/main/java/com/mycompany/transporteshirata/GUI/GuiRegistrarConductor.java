@@ -31,8 +31,60 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         int y = (pantalla.height - this.getHeight());
         this.setLocation(x / 2 + 150, y / 2 - 40);
         this.setSize(1080, 720);
+
+        // RI-2: Conectar botón Cancelar para limpiar y volver al modo nuevo
+        bt_cancelar.addActionListener(e -> cambiarAModoNuevo());
+
+        // RI-2: Conectar botón Eliminar para borrar el conductor seleccionado
+        bt_eliminar.addActionListener(e -> {
+            int selectedRow = tbl_conductor.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un conductor de la tabla para eliminar.");
+                return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de eliminar este conductor?",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                int id = (Integer) tbl_conductor.getValueAt(selectedRow, 0);
+                if (dcon.eliminarConductor(id)) {
+                    JOptionPane.showMessageDialog(this, "✅ Conductor eliminado correctamente.");
+                    cargarTabla();
+                    cambiarAModoNuevo();
+                }
+            }
+        });
+
+        // Iniciar en modo nuevo (guardar habilitado, editar/eliminar/cancelar deshabilitados)
+        cambiarAModoNuevo();
     }
 
+public static boolean validarRut(String rut) {
+    boolean validacion = false;
+    try {
+        rut = rut.toUpperCase().replace(".", "").replace("-", "");
+        int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+        char dv = rut.charAt(rut.length() - 1);
+        int m = 0, s = 1;
+        for (; rutAux != 0; rutAux /= 10) {
+            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+        }
+        if (dv == (char) (s != 0 ? s + 47 : 75)) {
+            validacion = true;
+        }
+    } catch (Exception e) {
+        validacion = false;
+    }
+    return validacion;
+}
+    public boolean validarTelefono(String telefono) {
+        // Valida que sean entre 8 y 11 números (sin letras, sin espacios)
+        return telefono.matches("^[0-9]{8,11}$");
+    }
+    public boolean validarClave(String clave) {
+        //Verifica que la clave tenga entre 6 y 20 caracteres
+        return clave.length() >= 6 && clave.length() <= 20;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,7 +105,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txt_clave = new javax.swing.JTextField();
+        txt_clave = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -92,12 +144,6 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         bt_cancelar.setText("Cancelar");
 
         jLabel6.setText("Contraseña");
-
-        txt_clave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_claveActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,14 +308,40 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                 con.getRut(),
                 con.getNombre(),
                 con.getLicencia(),
-                con.getTelefono(),};
-                con.getClave();
+                con.getTelefono(),
+                "****"  // RI-3: Ocultar contraseña por seguridad
+            };
             tableModel.addRow(objs);
         }
         tbl_conductor.setModel(tableModel);
 
     }
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
+        //Valida campos vacíos
+        if (txt_rut.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || 
+            txt_clave.getText().trim().isEmpty() || txt_licencia.getText().trim().isEmpty() || 
+            txt_telefono.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos obligatorios.");
+            return;
+        }
+        
+        //Valida formato de RUT
+        if (!validarRut(txt_rut.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Formato de RUT inválido. Use el formato: 12345678-9");
+            return; 
+        }
+
+        //Valida formato de Teléfono
+        if (!validarTelefono(txt_telefono.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números (entre 8 y 11 dígitos).");
+            return;
+        }
+        //Validacion de longitud de la contraseña
+        if (!validarClave(txt_clave.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La contraseña debe tener entre 6 y 20 caracteres por seguridad.");
+            return;
+        }
+
         Conductor con = new Conductor();
         con.setRut(this.txt_rut.getText());
         con.setNombre(this.txt_nombre.getText());
@@ -295,6 +367,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
                     this.txt_nombre.setText(dcon.getNombre());
                     this.txt_licencia.setText(dcon.getLicencia());
                     this.txt_telefono.setText(dcon.getTelefono());
+                    this.txt_clave.setText(dcon.getClave());
                 }
             }
         }
@@ -326,6 +399,31 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.txt_clave.setText("");
     }
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        //Valida campos vacíos
+        if (txt_rut.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() || 
+            txt_clave.getText().trim().isEmpty() || txt_licencia.getText().trim().isEmpty() || 
+            txt_telefono.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos obligatorios.");
+            return;
+        }
+        
+        //Valida formato de RUT
+        if (!validarRut(txt_rut.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Formato de RUT inválido. Use el formato: 12345678-9");
+            return; 
+        }
+
+        //Valida formato de Teléfono
+        if (!validarTelefono(txt_telefono.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números (entre 8 y 11 dígitos).");
+            return;
+        }
+        //Validacion de longitud de la contraseña 
+        if (!validarClave(txt_clave.getText())) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La contraseña debe tener entre 6 y 20 caracteres por seguridad.");
+            return;
+        }
+        
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
         Conductor dcon_encontrado = null;
         for (Conductor dcon : dcon.listarConductores()) {
@@ -355,10 +453,6 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         this.limpiarFormulario();
         cambiarAModoNuevo();
     }//GEN-LAST:event_bt_editarActionPerformed
-
-    private void txt_claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_claveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_claveActionPerformed
     ConductoDao dcon = new ConductoDao();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -377,7 +471,7 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_conductor;
-    private javax.swing.JTextField txt_clave;
+    private javax.swing.JPasswordField txt_clave;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_licencia;
     private javax.swing.JTextField txt_nombre;

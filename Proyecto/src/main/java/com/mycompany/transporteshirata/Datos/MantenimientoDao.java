@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,7 +50,7 @@ public class MantenimientoDao {
                 lista.add(m);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar mantenimientos: " + e.toString());
+            Mensajes.mostrarError("Error al listar mantenimientos: " + e.toString());
         }
         return lista;
     }
@@ -70,7 +69,7 @@ public class MantenimientoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar mantenimiento: " + e.toString());
+            Mensajes.mostrarError("Error al registrar mantenimiento: " + e.toString());
             return false;
         }
     }
@@ -90,7 +89,7 @@ public class MantenimientoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.toString());
+            Mensajes.mostrarError("Error al modificar: " + e.toString());
             return false;
         }
     }
@@ -104,7 +103,7 @@ public class MantenimientoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.toString());
+            Mensajes.mostrarError("Error al eliminar: " + e.toString());
             return false;
         }
     }
@@ -127,6 +126,33 @@ public class MantenimientoDao {
         return ultimoKm;
     }
     
+    /**
+     * RE-1: Devuelve lista de patentes de camiones que llevan 5000+ km sin mantenimiento.
+     */
+    public List<String> obtenerCamionesPendientesMantenimiento() {
+        List<String> pendientes = new ArrayList<>();
+        String sql = "SELECT c.patente, c.kilometrajeActual, "
+                   + "COALESCE(MAX(m.kilometrajeMantenimiento), 0) AS ultimoKm "
+                   + "FROM Camion c "
+                   + "LEFT JOIN Mantenimiento m ON c.idCamion = m.idCamion "
+                   + "GROUP BY c.idCamion, c.patente, c.kilometrajeActual "
+                   + "HAVING (c.kilometrajeActual - COALESCE(MAX(m.kilometrajeMantenimiento), 0)) >= 5000";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String patente = rs.getString("patente");
+                int kmActual = rs.getInt("kilometrajeActual");
+                int ultimoKm = rs.getInt("ultimoKm");
+                pendientes.add(patente + " (" + (kmActual - ultimoKm) + " km sin mantención)");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar mantenimientos: " + e.getMessage());
+        }
+        return pendientes;
+    }
+
     public boolean modificarDetallesMantenimiento(Mantenimiento m) {
         String sql = "UPDATE Mantenimiento SET fecha=?, tipo=?, descripcion=?, kilometrajeMantenimiento=? WHERE idMantenimiento=?";
         try {
@@ -140,7 +166,7 @@ public class MantenimientoDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar detalles: " + e.toString());
+            Mensajes.mostrarError("Error al modificar detalles: " + e.toString());
             return false;
         }
     }

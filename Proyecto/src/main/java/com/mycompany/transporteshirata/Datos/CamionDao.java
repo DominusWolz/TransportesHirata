@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author pccas
@@ -54,7 +53,7 @@ public class CamionDao {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar camiones: " + e.toString());
+            Mensajes.mostrarError("Error al listar camiones: " + e.toString());
         }
         return lista;
     }
@@ -81,7 +80,7 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar (¿Patente duplicada?): " + e.toString());
+            Mensajes.mostrarError("Error al registrar (patente duplicada?): " + e.toString());
             return false;
         }
     }
@@ -107,7 +106,7 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.toString());
+            Mensajes.mostrarError("Error al modificar: " + e.toString());
             return false;
         }
     }
@@ -123,7 +122,7 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar kilometraje: " + e.toString());
+            Mensajes.mostrarError("Error al actualizar kilometraje: " + e.toString());
             return false;
         }
     }
@@ -138,12 +137,10 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar camión: " + e.toString());
+            Mensajes.mostrarError("Error al eliminar camion: " + e.toString());
             return false;
         }
     }
 
-    public void create(Camion c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
 }
