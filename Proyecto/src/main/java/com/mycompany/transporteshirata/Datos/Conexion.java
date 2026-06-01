@@ -4,6 +4,7 @@
  */
 package com.mycompany.transporteshirata.Datos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,10 +45,22 @@ public class Conexion {
 
     private static Properties cargarConfig() {
         Properties config = new Properties();
-        try (FileInputStream fis = new FileInputStream(CONFIG_LOCAL)) {
-            config.load(fis);
-        } catch (IOException e) {
-            // Si no existe el archivo local, se usan variables de entorno o valores por defecto.
+        File[] ubicaciones = {
+            new File(CONFIG_LOCAL),
+            new File("Proyecto", CONFIG_LOCAL),
+            new File(System.getProperty("user.home"), CONFIG_LOCAL)
+        };
+
+        for (File archivo : ubicaciones) {
+            if (!archivo.isFile()) {
+                continue;
+            }
+            try (FileInputStream fis = new FileInputStream(archivo)) {
+                config.load(fis);
+                break;
+            } catch (IOException e) {
+                Mensajes.mostrarError("No se pudo leer la configuracion de BD: " + archivo.getAbsolutePath());
+            }
         }
         return config;
     }
