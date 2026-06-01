@@ -15,6 +15,8 @@ public class Mantenimiento {
     private String descripcion;
     private int kilometrajeMantenimiento; // Km que tiene el camión el día del mantenimiento
     private Camion camion;
+    private PiezaInventario piezaUsada;
+    private int cantidadPiezaUsada;
 
 
     public Mantenimiento() {
@@ -49,6 +51,12 @@ public class Mantenimiento {
     public Camion getCamion() { 
         return camion; 
     }
+    public PiezaInventario getPiezaUsada() {
+        return piezaUsada;
+    }
+    public int getCantidadPiezaUsada() {
+        return cantidadPiezaUsada;
+    }
 
 
     public void setIdMantenimiento(int idMantenimiento) {
@@ -68,6 +76,12 @@ public class Mantenimiento {
     }
     public void setCamion(Camion camion) {
         this.camion = camion; 
+    }
+    public void setPiezaUsada(PiezaInventario piezaUsada) {
+        this.piezaUsada = piezaUsada;
+    }
+    public void setCantidadPiezaUsada(int cantidadPiezaUsada) {
+        this.cantidadPiezaUsada = cantidadPiezaUsada;
     }
     
     

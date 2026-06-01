@@ -4,6 +4,8 @@
  */
 package com.mycompany.transporteshirata.GUI;
 
+import com.mycompany.transporteshirata.Datos.MantenimientoDao;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -19,7 +21,24 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("     \n     Principal     \n     ");
+        // RE-1: Alertar al abrir si hay camiones con 5000+ km sin mantención
+        mostrarAlertaMantenimiento();
+    }
 
+    private void mostrarAlertaMantenimiento() {
+        MantenimientoDao mDao = new MantenimientoDao();
+        List<String> pendientes = mDao.obtenerCamionesPendientesMantenimiento();
+        if (!pendientes.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("⚠️  ALERTA DE MANTENIMIENTO\n");
+            sb.append("Los siguientes camiones requieren mantención urgente:\n\n");
+            for (String linea : pendientes) {
+                sb.append("  • ").append(linea).append("\n");
+            }
+            sb.append("\nPor favor programe el mantenimiento a la brevedad.");
+            javax.swing.JOptionPane.showMessageDialog(this, sb.toString(),
+                "Alerta de Mantenimiento", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**
@@ -42,6 +61,7 @@ public class Principal extends javax.swing.JFrame {
         bt_conductor1 = new javax.swing.JMenu();
         bt_mantenimiento = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        bt_inventarioPiezas = new javax.swing.JMenuItem();
         openMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
@@ -114,6 +134,15 @@ public class Principal extends javax.swing.JFrame {
         });
         bt_conductor1.add(jMenuItem1);
 
+        bt_inventarioPiezas.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        bt_inventarioPiezas.setText("Inventario de piezas");
+        bt_inventarioPiezas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_inventarioPiezasActionPerformed(evt);
+            }
+        });
+        bt_conductor1.add(bt_inventarioPiezas);
+
         openMenuItem3.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         openMenuItem3.setText("Volver");
         openMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +193,12 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.add(hist);
         hist.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void bt_inventarioPiezasActionPerformed(java.awt.event.ActionEvent evt) {
+        GuiInventarioPiezas inv = new GuiInventarioPiezas();
+        desktopPane.add(inv);
+        inv.setVisible(true);
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             this.setVisible(false);
@@ -221,6 +256,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu bt_conductor;
     private javax.swing.JMenu bt_conductor1;
+    private javax.swing.JMenuItem bt_inventarioPiezas;
     private javax.swing.JMenuItem bt_mantenimiento;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JButton jButton1;

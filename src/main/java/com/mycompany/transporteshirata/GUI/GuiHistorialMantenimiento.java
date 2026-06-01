@@ -28,6 +28,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
     public void cargarTabla(String filtroPatente) {
         String col[] = {"ID Mantenimiento", "Fecha", "Tipo", "Descripción", "Km. Mantenimiento", "Patente Camión"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tableModel.addColumn("Pieza usada");
+        tableModel.addColumn("Cant.");
         MantenimientoDao mDao = new MantenimientoDao();
 
         List<Mantenimiento> lista = mDao.listarMantenimientos();
@@ -46,6 +48,9 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
                     m.getCamion().getPatente()
                 };
                 tableModel.addRow(objs);
+                int filaAgregada = tableModel.getRowCount() - 1;
+                tableModel.setValueAt(m.getPiezaUsada() == null ? "Sin pieza" : m.getPiezaUsada().getNombre(), filaAgregada, 6);
+                tableModel.setValueAt(m.getCantidadPiezaUsada() == 0 ? "" : m.getCantidadPiezaUsada(), filaAgregada, 7);
             }
         }
         tbl_historial.setModel(tableModel);
@@ -141,7 +146,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tipo");
 
-        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Correctivo", " " }));
+        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Correctivo", "Actualizacion de software", " " }));
 
         bt_editar.setText("Guardar Cambios");
         bt_editar.addActionListener(this::bt_editarActionPerformed);
@@ -308,35 +313,36 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_refrescarActionPerformed
 
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
+        // RE-3: Validar que haya un registro seleccionado
         if (txt_id.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un registro de la tabla para editar.");
             return;
         }
+        // RE-3 + RE-2: Validar que el tipo no sea la opción en blanco
+        String tipoSeleccionado = cmb_tipo.getSelectedItem().toString().trim();
+        if (tipoSeleccionado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de mantenimiento válido (Preventivo o Correctivo).");
+            return;
+        }
+        // RE-3: Bug corregido — toda la lógica dentro del try-catch, sin código duplicado afuera
         try {
-            
             Mantenimiento m = new Mantenimiento();
             m.setIdMantenimiento(Integer.parseInt(txt_id.getText()));
             m.setFecha(LocalDate.parse(txt_fecha.getText()));
-            m.setTipo(cmb_tipo.getSelectedItem().toString());
-            m.setDescripcion(txt_descripcion.getText());
+            m.setTipo(tipoSeleccionado);
+            // Usa txt_desc (campo editable con estilo) como fuente de la descripción
+            String descripcion = txt_desc.getText().trim().isEmpty() ? txt_descripcion.getText() : txt_desc.getText();
+            m.setDescripcion(descripcion);
             m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
 
-            
+            MantenimientoDao mDao = new MantenimientoDao();
+            if (mDao.modificarDetallesMantenimiento(m)) {
+                JOptionPane.showMessageDialog(this, "✅ Registro actualizado correctamente.");
+                cargarTabla(txt_buscar.getText());
+                limpiarCajas();
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato.");
-        }
-        Mantenimiento m = new Mantenimiento();
-        m.setIdMantenimiento(Integer.parseInt(txt_id.getText()));
-        m.setFecha(LocalDate.parse(txt_fecha.getText()));
-        m.setTipo(cmb_tipo.getSelectedItem().toString());
-        m.setDescripcion(txt_descripcion.getText());
-        m.setKilometrajeMantenimiento(Integer.parseInt(txt_kilometraje.getText()));
-
-        MantenimientoDao mDao = new MantenimientoDao();
-        if (mDao.modificarDetallesMantenimiento(m)) {
-            JOptionPane.showMessageDialog(this, "✅ Registro actualizado correctamente.");
-            cargarTabla(txt_buscar.getText()); 
-            limpiarCajas();
+            JOptionPane.showMessageDialog(this, "Error en los datos. Revise el formato: " + e.getMessage());
         }
     }//GEN-LAST:event_bt_editarActionPerformed
 

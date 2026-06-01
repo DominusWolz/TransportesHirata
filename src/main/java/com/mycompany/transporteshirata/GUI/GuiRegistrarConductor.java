@@ -31,6 +31,32 @@ public class GuiRegistrarConductor extends javax.swing.JInternalFrame {
         int y = (pantalla.height - this.getHeight());
         this.setLocation(x / 2 + 150, y / 2 - 40);
         this.setSize(1080, 720);
+
+        // RI-2: Conectar botón Cancelar para limpiar y volver al modo nuevo
+        bt_cancelar.addActionListener(e -> cambiarAModoNuevo());
+
+        // RI-2: Conectar botón Eliminar para borrar el conductor seleccionado
+        bt_eliminar.addActionListener(e -> {
+            int selectedRow = tbl_conductor.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un conductor de la tabla para eliminar.");
+                return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de eliminar este conductor?",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                int id = (Integer) tbl_conductor.getValueAt(selectedRow, 0);
+                if (dcon.eliminarConductor(id)) {
+                    JOptionPane.showMessageDialog(this, "✅ Conductor eliminado correctamente.");
+                    cargarTabla();
+                    cambiarAModoNuevo();
+                }
+            }
+        });
+
+        // Iniciar en modo nuevo (guardar habilitado, editar/eliminar/cancelar deshabilitados)
+        cambiarAModoNuevo();
     }
 
 public static boolean validarRut(String rut) {
@@ -283,7 +309,7 @@ public static boolean validarRut(String rut) {
                 con.getNombre(),
                 con.getLicencia(),
                 con.getTelefono(),
-                con.getClave()
+                "****"  // RI-3: Ocultar contraseña por seguridad
             };
             tableModel.addRow(objs);
         }
@@ -322,11 +348,11 @@ public static boolean validarRut(String rut) {
         con.setLicencia(this.txt_licencia.getText());
         con.setTelefono(this.txt_telefono.getText());
         con.setClave(this.txt_clave.getText());
-        dcon.registrarConductor(con);
-
-        cargarTabla();
-        JOptionPane.showMessageDialog(this, "✅ Conductor registrado");
-        cambiarAModoNuevo();
+        if (dcon.registrarConductor(con)) {
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Conductor registrado correctamente.");
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tbl_conductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_conductorMouseClicked
@@ -421,11 +447,11 @@ public static boolean validarRut(String rut) {
             dcon_encontrado.setIdConductor(Integer.parseInt(this.txt_id.getText()));
         }
 
-        dcon.modificarConductor(dcon_encontrado);
-
-        cargarTabla();
-        this.limpiarFormulario();
-        cambiarAModoNuevo();
+        if (dcon.modificarConductor(dcon_encontrado)) {
+            cargarTabla();
+            this.limpiarFormulario();
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_editarActionPerformed
     ConductoDao dcon = new ConductoDao();
 

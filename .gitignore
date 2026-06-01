@@ -1,1 +1,5 @@
 /nbproject/
+/target/
+/.tools/
+/.vs/
+/hirata-db.properties

@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author pccas
@@ -54,13 +53,19 @@ public class CamionDao {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar camiones: " + e.toString());
+            Mensajes.mostrarError("Error al listar camiones: " + e.toString());
         }
         return lista;
     }
 
     
     public boolean registrarCamion(Camion c) {
+        if (c.getConductor() != null && c.getConductor().getIdConductor() > 0
+                && !existeConductor(c.getConductor().getIdConductor())) {
+            Mensajes.mostrarError("El conductor seleccionado ya no existe. Actualice la lista y seleccione otro conductor.");
+            return false;
+        }
+
         String sql = "INSERT INTO Camion (patente, marca, modelo, anio, kilometrajeActual, idConductor) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             con = Conexion.getConexion();
@@ -81,13 +86,19 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar (¿Patente duplicada?): " + e.toString());
+            Mensajes.mostrarError("Error al registrar (patente duplicada?): " + e.toString());
             return false;
         }
     }
 
    
     public boolean modificarCamion(Camion c) {
+        if (c.getConductor() != null && c.getConductor().getIdConductor() > 0
+                && !existeConductor(c.getConductor().getIdConductor())) {
+            Mensajes.mostrarError("El conductor seleccionado ya no existe. Actualice la lista y seleccione otro conductor.");
+            return false;
+        }
+
         String sql = "UPDATE Camion SET patente=?, marca=?, modelo=?, anio=?, idConductor=? WHERE idCamion=?";
         try {
             con = Conexion.getConexion();
@@ -107,7 +118,7 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar: " + e.toString());
+            Mensajes.mostrarError("Error al modificar: " + e.toString());
             return false;
         }
     }
@@ -123,7 +134,7 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar kilometraje: " + e.toString());
+            Mensajes.mostrarError("Error al actualizar kilometraje: " + e.toString());
             return false;
         }
     }
@@ -138,7 +149,35 @@ public class CamionDao {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar camión: " + e.toString());
+            Mensajes.mostrarError("Error al eliminar camion: " + e.toString());
+            return false;
+        }
+    }
+
+    public boolean existeCamion(int idCamion) {
+        String sql = "SELECT idCamion FROM Camion WHERE idCamion = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCamion);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al validar camion: " + e.toString());
+            return false;
+        }
+    }
+
+    private boolean existeConductor(int idConductor) {
+        String sql = "SELECT idConductor FROM Conductor WHERE idConductor = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idConductor);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al validar conductor: " + e.toString());
             return false;
         }
     }
