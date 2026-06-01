@@ -76,4 +76,12 @@ public class PiezaInventario {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+
+    @Override
+    public String toString() {
+        if (idPieza <= 0) {
+            return nombre == null ? "Sin pieza" : nombre;
+        }
+        return nombre + " (stock: " + cantidad + ")";
+    }
 }

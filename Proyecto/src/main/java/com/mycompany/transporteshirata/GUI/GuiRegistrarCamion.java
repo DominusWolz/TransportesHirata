@@ -332,10 +332,11 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             c.setConductor(vacio);
         }
 
-        dc.registrarCamion(c);
-        cargarTabla();
-        JOptionPane.showMessageDialog(this, "✅ Camión guardado exitosamente");
-        cambiarAModoNuevo();
+        if (dc.registrarCamion(c)) {
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Camion guardado exitosamente.");
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tbl_camionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_camionMouseClicked
@@ -435,19 +436,20 @@ public class GuiRegistrarCamion extends javax.swing.JInternalFrame {
             vacio.setIdConductor(0);
             c_encontrado.setConductor(vacio);
         }
-        dc.modificarCamion(c_encontrado);
-
-        cargarTabla();
-        this.limpiarFormulario();
-        cambiarAModoNuevo();
+        if (dc.modificarCamion(c_encontrado)) {
+            cargarTabla();
+            this.limpiarFormulario();
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_editarActionPerformed
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
         Integer id_seleccionado = Integer.parseInt(this.txt_id.getText());
-        dc.eliminarCamion(id_seleccionado);
-        cambiarAModoNuevo();
-        cargarTabla();
-        this.limpiarFormulario();
+        if (dc.eliminarCamion(id_seleccionado)) {
+            cambiarAModoNuevo();
+            cargarTabla();
+            this.limpiarFormulario();
+        }
     }//GEN-LAST:event_bt_eliminarActionPerformed
     CamionDao dc = new CamionDao();
     ConductoDao cd = new ConductoDao();

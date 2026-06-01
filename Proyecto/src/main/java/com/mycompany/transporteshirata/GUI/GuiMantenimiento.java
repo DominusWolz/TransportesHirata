@@ -5,8 +5,10 @@
 package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.MantenimientoDao;
+import com.mycompany.transporteshirata.Datos.PiezaInventarioDao;
 import com.mycompany.transporteshirata.Logica.Camion;
 import com.mycompany.transporteshirata.Logica.Mantenimiento;
+import com.mycompany.transporteshirata.Logica.PiezaInventario;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +28,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     public GuiMantenimiento() {
         initComponents();
         cargarTabla();
+        cargarPiezas();
         // RI-1: Conectar botón Cancelar para limpiar el formulario
         bt_cancelar.addActionListener(e -> limpiarFormulario());
     }
@@ -56,6 +59,10 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         txt_kilometraje = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txt_camion = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        cmb_pieza = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        txt_cantidadPieza = new javax.swing.JTextField();
         bt_guardar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
 
@@ -119,7 +126,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         jLabel4.setText("Tipo");
 
         cmb_tipo.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "preventivo", "correctivo", " " }));
+        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "preventivo", "correctivo", "actualizacion de software", " " }));
 
         jLabel5.setText("descripcion");
 
@@ -130,6 +137,10 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         jLabel7.setText("Camion");
 
         txt_camion.setEditable(false);
+
+        jLabel8.setText("Pieza usada");
+
+        jLabel9.setText("Cantidad pieza");
 
         bt_guardar.setText("Guardar");
         bt_guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,11 +176,15 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_kilometraje)
-                            .addComponent(txt_camion))))
+                            .addComponent(txt_camion)
+                            .addComponent(cmb_pieza, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_cantidadPieza))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,11 +220,19 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txt_camion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cmb_pieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txt_cantidadPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(bt_guardar)
                 .addGap(26, 26, 26)
                 .addComponent(bt_cancelar)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,7 +271,20 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
             tableModel.addRow(objs);
         }
         tbl_camion.setModel(tableModel);
+        bt_guardar.setEnabled(tableModel.getRowCount() > 0);
 
+    }
+
+    public void cargarPiezas() {
+        cmb_pieza.removeAllItems();
+        PiezaInventario sinPieza = new PiezaInventario();
+        sinPieza.setIdPieza(0);
+        sinPieza.setNombre("Sin pieza");
+        cmb_pieza.addItem(sinPieza);
+
+        for (PiezaInventario pieza : dp.listarPiezas()) {
+            cmb_pieza.addItem(pieza);
+        }
     }
 
     public void limpiarFormulario() {
@@ -257,6 +293,10 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
         this.txt_kilometraje.setText("");
         this.txt_descripcion.setText("");
         this.txt_fecha.setText("");
+        this.txt_cantidadPieza.setText("");
+        if (this.cmb_pieza.getItemCount() > 0) {
+            this.cmb_pieza.setSelectedIndex(0);
+        }
         this.tbl_camion.clearSelection();
     }
     private void txt_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechaActionPerformed
@@ -281,7 +321,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     private void bt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_guardarActionPerformed
         int fila = tbl_camion.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un camión de la tabla.");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un camion registrado. Si la tabla esta vacia, registre primero un camion.");
             return;
         }
         // RE-2: Validar que se haya elegido un tipo válido (no la opción en blanco)
@@ -290,6 +330,7 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de mantenimiento (Preventivo o Correctivo).");
             return;
         }
+        // RE-2: Validar que se haya elegido un tipo válido (no la opción en blanco)
         if (txt_descripcion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, asegúrese de llenar todos los campos de texto y la descripción del arreglo.");
             return;
@@ -307,9 +348,32 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
             c.setIdCamion((int) tbl_camion.getValueAt(fila, 0));
             m.setCamion(c);
 
+            if (!dc.existeCamion(c.getIdCamion())) {
+                cargarTabla();
+                limpiarFormulario();
+                JOptionPane.showMessageDialog(this, "El camion seleccionado ya no esta disponible. Se actualizo la tabla; seleccione un camion registrado.");
+                return;
+            }
+
+            PiezaInventario piezaSeleccionada = (PiezaInventario) cmb_pieza.getSelectedItem();
+            if (piezaSeleccionada != null && piezaSeleccionada.getIdPieza() > 0) {
+                if (txt_cantidadPieza.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingrese la cantidad de piezas usadas.");
+                    return;
+                }
+                int cantidadUsada = Integer.parseInt(txt_cantidadPieza.getText().trim());
+                if (cantidadUsada <= 0) {
+                    JOptionPane.showMessageDialog(this, "La cantidad de piezas debe ser mayor a 0.");
+                    return;
+                }
+                m.setPiezaUsada(piezaSeleccionada);
+                m.setCantidadPiezaUsada(cantidadUsada);
+            }
+
             MantenimientoDao mDao = new MantenimientoDao();
             if (mDao.registrarMantenimiento(m)) {
                 JOptionPane.showMessageDialog(this, "✅ Mantenimiento registrado. La alerta se ha actualizado.");
+                cargarPiezas();
                 limpiarFormulario();
             }
         } catch (Exception e) {
@@ -318,9 +382,11 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     CamionDao dc = new CamionDao();
+    PiezaInventarioDao dp = new PiezaInventarioDao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_guardar;
+    private javax.swing.JComboBox<PiezaInventario> cmb_pieza;
     private javax.swing.JComboBox<String> cmb_tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -329,11 +395,14 @@ public class GuiMantenimiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_camion;
     private javax.swing.JTextField txt_camion;
+    private javax.swing.JTextField txt_cantidadPieza;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_id;

@@ -45,6 +45,10 @@ public class ConductoDao {
 
 
     public boolean registrarConductor(Conductor c) {
+        if (existeRut(c.getRut(), 0)) {
+            Mensajes.mostrarError("Ya existe un conductor registrado con ese RUT.");
+            return false;
+        }
         
         String sql = "INSERT INTO Conductor (rut, nombre, licencia, telefono, clave) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -64,6 +68,10 @@ public class ConductoDao {
     }
 
     public boolean modificarConductor(Conductor c) {
+        if (existeRut(c.getRut(), c.getIdConductor())) {
+            Mensajes.mostrarError("Ya existe otro conductor registrado con ese RUT.");
+            return false;
+        }
         
         String sql = "UPDATE Conductor SET rut=?, nombre=?, licencia=?, telefono=?, clave=? WHERE idConductor=?";
         try {
@@ -116,5 +124,29 @@ public class ConductoDao {
             Mensajes.mostrarError("Error al listar conductores: " + e.toString());
         }
         return lista;
+    }
+
+    public boolean existeRut(String rut, int idIgnorado) {
+        String sql = "SELECT idConductor FROM Conductor "
+                + "WHERE REPLACE(REPLACE(UPPER(rut), '.', ''), '-', '') = ? AND idConductor <> ?";
+
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, normalizarRut(rut));
+            ps.setInt(2, idIgnorado);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al validar RUT duplicado: " + e.toString());
+            return true;
+        }
+    }
+
+    private String normalizarRut(String rut) {
+        if (rut == null) {
+            return "";
+        }
+        return rut.toUpperCase().replace(".", "").replace("-", "").trim();
     }
 }

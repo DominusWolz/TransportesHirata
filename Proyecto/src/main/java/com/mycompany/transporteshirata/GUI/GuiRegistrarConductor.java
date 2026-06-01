@@ -348,11 +348,11 @@ public static boolean validarRut(String rut) {
         con.setLicencia(this.txt_licencia.getText());
         con.setTelefono(this.txt_telefono.getText());
         con.setClave(this.txt_clave.getText());
-        dcon.registrarConductor(con);
-
-        cargarTabla();
-        JOptionPane.showMessageDialog(this, "✅ Conductor registrado");
-        cambiarAModoNuevo();
+        if (dcon.registrarConductor(con)) {
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "Conductor registrado correctamente.");
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_guardarActionPerformed
 
     private void tbl_conductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_conductorMouseClicked
@@ -447,11 +447,11 @@ public static boolean validarRut(String rut) {
             dcon_encontrado.setIdConductor(Integer.parseInt(this.txt_id.getText()));
         }
 
-        dcon.modificarConductor(dcon_encontrado);
-
-        cargarTabla();
-        this.limpiarFormulario();
-        cambiarAModoNuevo();
+        if (dcon.modificarConductor(dcon_encontrado)) {
+            cargarTabla();
+            this.limpiarFormulario();
+            cambiarAModoNuevo();
+        }
     }//GEN-LAST:event_bt_editarActionPerformed
     ConductoDao dcon = new ConductoDao();
 

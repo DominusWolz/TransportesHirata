@@ -28,6 +28,8 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
     public void cargarTabla(String filtroPatente) {
         String col[] = {"ID Mantenimiento", "Fecha", "Tipo", "Descripción", "Km. Mantenimiento", "Patente Camión"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+        tableModel.addColumn("Pieza usada");
+        tableModel.addColumn("Cant.");
         MantenimientoDao mDao = new MantenimientoDao();
 
         List<Mantenimiento> lista = mDao.listarMantenimientos();
@@ -46,6 +48,9 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
                     m.getCamion().getPatente()
                 };
                 tableModel.addRow(objs);
+                int filaAgregada = tableModel.getRowCount() - 1;
+                tableModel.setValueAt(m.getPiezaUsada() == null ? "Sin pieza" : m.getPiezaUsada().getNombre(), filaAgregada, 6);
+                tableModel.setValueAt(m.getCantidadPiezaUsada() == 0 ? "" : m.getCantidadPiezaUsada(), filaAgregada, 7);
             }
         }
         tbl_historial.setModel(tableModel);
@@ -141,7 +146,7 @@ public class GuiHistorialMantenimiento extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tipo");
 
-        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Correctivo", " " }));
+        cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preventivo", "Correctivo", "Actualizacion de software", " " }));
 
         bt_editar.setText("Guardar Cambios");
         bt_editar.addActionListener(this::bt_editarActionPerformed);

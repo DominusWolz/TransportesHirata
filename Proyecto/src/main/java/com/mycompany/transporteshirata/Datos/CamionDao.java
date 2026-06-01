@@ -60,6 +60,12 @@ public class CamionDao {
 
     
     public boolean registrarCamion(Camion c) {
+        if (c.getConductor() != null && c.getConductor().getIdConductor() > 0
+                && !existeConductor(c.getConductor().getIdConductor())) {
+            Mensajes.mostrarError("El conductor seleccionado ya no existe. Actualice la lista y seleccione otro conductor.");
+            return false;
+        }
+
         String sql = "INSERT INTO Camion (patente, marca, modelo, anio, kilometrajeActual, idConductor) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             con = Conexion.getConexion();
@@ -87,6 +93,12 @@ public class CamionDao {
 
    
     public boolean modificarCamion(Camion c) {
+        if (c.getConductor() != null && c.getConductor().getIdConductor() > 0
+                && !existeConductor(c.getConductor().getIdConductor())) {
+            Mensajes.mostrarError("El conductor seleccionado ya no existe. Actualice la lista y seleccione otro conductor.");
+            return false;
+        }
+
         String sql = "UPDATE Camion SET patente=?, marca=?, modelo=?, anio=?, idConductor=? WHERE idCamion=?";
         try {
             con = Conexion.getConexion();
@@ -138,6 +150,34 @@ public class CamionDao {
             return true;
         } catch (SQLException e) {
             Mensajes.mostrarError("Error al eliminar camion: " + e.toString());
+            return false;
+        }
+    }
+
+    public boolean existeCamion(int idCamion) {
+        String sql = "SELECT idCamion FROM Camion WHERE idCamion = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCamion);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al validar camion: " + e.toString());
+            return false;
+        }
+    }
+
+    private boolean existeConductor(int idConductor) {
+        String sql = "SELECT idConductor FROM Conductor WHERE idConductor = ?";
+        try {
+            con = Conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idConductor);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al validar conductor: " + e.toString());
             return false;
         }
     }

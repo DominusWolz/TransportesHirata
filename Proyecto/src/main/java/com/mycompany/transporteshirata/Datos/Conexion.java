@@ -115,9 +115,26 @@ public class Conexion {
                     + "CONSTRAINT fk_mantenimiento_camion FOREIGN KEY (idCamion) REFERENCES Camion(idCamion)"
                     + ")");
 
-            st.executeUpdate("INSERT INTO Conductor (idConductor, rut, nombre, licencia, telefono, clave) "
-                    + "VALUES (1, '11.111.111-1', 'Conductor Base', 'BASE-1', '99999999', 'base123') "
-                    + "ON DUPLICATE KEY UPDATE idConductor = idConductor");
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS PiezaInventario ("
+                    + "idPieza INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "nombre VARCHAR(100) NOT NULL UNIQUE,"
+                    + "descripcion VARCHAR(255),"
+                    + "cantidad INT NOT NULL DEFAULT 0,"
+                    + "stockMinimo INT NOT NULL DEFAULT 0,"
+                    + "ubicacion VARCHAR(100)"
+                    + ")");
+
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS MantenimientoPieza ("
+                    + "idMantenimientoPieza INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "idMantenimiento INT NOT NULL,"
+                    + "idPieza INT NOT NULL,"
+                    + "cantidadUsada INT NOT NULL,"
+                    + "CONSTRAINT fk_mp_mantenimiento FOREIGN KEY (idMantenimiento) REFERENCES Mantenimiento(idMantenimiento) ON DELETE CASCADE,"
+                    + "CONSTRAINT fk_mp_pieza FOREIGN KEY (idPieza) REFERENCES PiezaInventario(idPieza)"
+                    + ")");
+
+            st.executeUpdate("INSERT IGNORE INTO Conductor (idConductor, rut, nombre, licencia, telefono, clave) "
+                    + "VALUES (1, '10.000.000-8', 'Conductor Base', 'BASE-1', '99999999', 'base123')");
         }
 
         esquemaVerificado = true;
