@@ -22,7 +22,7 @@ public class Conexion {
     private static final String CONFIG_LOCAL = "hirata-db.properties";
     private static final String URL_DEFECTO = "jdbc:mysql://localhost:3306/Transportes_Hirata";
     private static final String USUARIO_DEFECTO = "root";
-    private static final String PASSWORD_DEFECTO = "";
+    private static final String PASSWORD_DEFECTO = "Catdog10";
     private static boolean esquemaVerificado = false;
 
     public static Connection getConexion() {

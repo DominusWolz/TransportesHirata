@@ -5,9 +5,12 @@ D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\my
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\LoginDao.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoDao.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\MantenimientoEquipoDao.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\Mensajes.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\PiezaInventarioDao.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Datos\SoftwareEquipoDao.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\ContraseñaAdmin.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiInventarioPiezas.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiKilometraje.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLogin.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\GUI\GuiLoginPrincipal.java
@@ -25,4 +28,5 @@ D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\my
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Login.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\Mantenimiento.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\MantenimientoEquipoOficina.java
+D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\PiezaInventario.java
 D:\Universidad\Tranportes Hirata\TransportesHirata\Proyecto\src\main\java\com\mycompany\transporteshirata\Logica\SoftwareEquipo.java
