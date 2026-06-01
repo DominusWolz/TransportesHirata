@@ -16,6 +16,8 @@ public class MantenimientoEquipoOficina {
     private String descripcion;
     private String observaciones;
     private EquipoOficina equipo;
+    private PiezaInventario piezaUsada;
+    private int cantidadPiezaUsada;
 
     public MantenimientoEquipoOficina() {}
 
@@ -41,6 +43,10 @@ public class MantenimientoEquipoOficina {
     public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
     public EquipoOficina getEquipo() { return equipo; }
     public void setEquipo(EquipoOficina equipo) { this.equipo = equipo; }
+    public PiezaInventario getPiezaUsada() { return piezaUsada; }
+    public void setPiezaUsada(PiezaInventario piezaUsada) { this.piezaUsada = piezaUsada; }
+    public int getCantidadPiezaUsada() { return cantidadPiezaUsada; }
+    public void setCantidadPiezaUsada(int cantidadPiezaUsada) { this.cantidadPiezaUsada = cantidadPiezaUsada; }
 
     @Override
     public String toString() {

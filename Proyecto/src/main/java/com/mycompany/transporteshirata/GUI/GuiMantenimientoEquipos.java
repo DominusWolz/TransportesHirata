@@ -6,8 +6,10 @@ package com.mycompany.transporteshirata.GUI;
 
 import com.mycompany.transporteshirata.Datos.EquipoOficinaDao;
 import com.mycompany.transporteshirata.Datos.MantenimientoEquipoDao;
+import com.mycompany.transporteshirata.Datos.PiezaInventarioDao;
 import com.mycompany.transporteshirata.Logica.EquipoOficina;
 import com.mycompany.transporteshirata.Logica.MantenimientoEquipoOficina;
+import com.mycompany.transporteshirata.Logica.PiezaInventario;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -22,6 +24,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     public static GuiMantenimientoEquipos instancia = null;
     EquipoOficinaDao ed = new EquipoOficinaDao();
     MantenimientoEquipoDao mantDao = new MantenimientoEquipoDao();
+    PiezaInventarioDao piezaDao = new PiezaInventarioDao();
 
     /**
      * Creates new form GuiMantenimientoEquipos
@@ -30,7 +33,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         initComponents();
         instancia = this;                 // asigno la instancia actual
         cargarComboEquipos();             // llena el combo con nombres
+        cargarComboPiezas();
         cargarTablaMantenimientos();
+        cambiarAModoNuevo();
     }
 
     /**
@@ -62,6 +67,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         bt_eliminar = new javax.swing.JButton();
         cmb_estado = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cmb_piezas = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        txt_cantidadpieza = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
         bt_refrescar = new javax.swing.JButton();
@@ -133,6 +142,10 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Estado");
 
+        jLabel9.setText("Repuesto usado");
+
+        jLabel10.setText("Cantidad repuesto");
+
         jLabel8.setText("Buscar por ID:");
 
         bt_refrescar.setText("Buscar");
@@ -169,6 +182,14 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel7)
                                         .addGap(147, 147, 147)
                                         .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(88, 88, 88)
+                                        .addComponent(cmb_piezas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(69, 69, 69)
+                                        .addComponent(txt_cantidadpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -240,7 +261,15 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cmb_piezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txt_cantidadpieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_registrar)
                     .addComponent(bt_editar))
@@ -303,7 +332,6 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private void bt_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrarActionPerformed
         if (txt_fechaequipo.getText().trim().isEmpty() ||
         txt_descripcionman.getText().trim().isEmpty() ||
-        txt_observaciones.getText().trim().isEmpty() ||
         cmb_tipomanequipo.getSelectedItem() == null ||
         cmb_equipos.getSelectedItem() == null ||
         cmb_estado.getSelectedItem() == null) {
@@ -335,6 +363,20 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
             m.setTipo(cmb_tipomanequipo.getSelectedItem().toString());
             m.setDescripcion(txt_descripcionman.getText());
             m.setObservaciones(txt_observaciones.getText());
+            PiezaInventario piezaSeleccionada = (PiezaInventario) cmb_piezas.getSelectedItem();
+            if (piezaSeleccionada != null && piezaSeleccionada.getIdPieza() > 0) {
+                if (txt_cantidadpieza.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingrese la cantidad de repuestos usados.");
+                    return;
+                }
+                int cantidadUsada = Integer.parseInt(txt_cantidadpieza.getText().trim());
+                if (cantidadUsada <= 0) {
+                    JOptionPane.showMessageDialog(this, "La cantidad de repuestos debe ser mayor a 0.");
+                    return;
+                }
+                m.setPiezaUsada(piezaSeleccionada);
+                m.setCantidadPiezaUsada(cantidadUsada);
+            }
 
             // Equipo: buscar por nombre
             EquipoOficina equipoSeleccionado = null;
@@ -373,6 +415,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                     limpiarFormulario();
                     cargarTablaMantenimientos();
                     cargarComboEquipos(); // recargo combo para reflejar estado actualizado
+                    cargarComboPiezas();
                 }
             } else {
                 try {
@@ -385,6 +428,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                         limpiarFormulario();
                         cargarTablaMantenimientos();
                         cargarComboEquipos(); // recargo combo para reflejar estado actualizado
+                        cargarComboPiezas();
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "ID inválido.");
@@ -411,8 +455,23 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }
 
 }
+    public void cargarComboPiezas() {
+        cmb_piezas.removeAllItems();
+        PiezaInventario sinPieza = new PiezaInventario();
+        sinPieza.setIdPieza(0);
+        sinPieza.setNombre("Sin repuesto");
+        cmb_piezas.addItem(sinPieza);
+
+        for (PiezaInventario pieza : piezaDao.listarPiezas()) {
+            cmb_piezas.addItem(pieza);
+        }
+        if (cmb_piezas.getItemCount() > 0) {
+            cmb_piezas.setSelectedIndex(0);
+        }
+    }
+
     private void cargarTablaMantenimientos() {
-    String col[] = {"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo", "Estado"};
+    String col[] = {"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo", "Estado", "Repuesto usado", "Cant."};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         List<MantenimientoEquipoOficina> lista = mantDao.listarMantenimientos();
         if (lista != null) {
@@ -424,7 +483,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                     m.getDescripcion(),
                     m.getObservaciones(),
                     m.getEquipo() != null ? m.getEquipo().getNombre() : "",
-                    m.getEquipo() != null ? m.getEquipo().getEstado() : ""
+                    m.getEquipo() != null ? m.getEquipo().getEstado() : "",
+                    m.getPiezaUsada() != null ? m.getPiezaUsada().getNombre() : "Sin repuesto",
+                    m.getCantidadPiezaUsada() > 0 ? m.getCantidadPiezaUsada() : ""
                 };
                 tableModel.addRow(objs);
             }
@@ -439,9 +500,13 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
         this.txt_descripcionman.setText("");
         this.txt_observaciones.setText("");
         this.txt_fechaequipo.setText("");
+        this.txt_cantidadpieza.setText("");
         this.jTextField1.setText("");
         this.jTable1.clearSelection();
         this.cmb_tipomanequipo.setSelectedIndex(0);
+        if (this.cmb_piezas.getItemCount() > 0) {
+            this.cmb_piezas.setSelectedIndex(0);
+        }
         
     }
 
@@ -490,6 +555,20 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 }
             }
 
+            Object piezaObj = jTable1.getColumnCount() > 7 ? jTable1.getValueAt(fila, 7) : null;
+            if (piezaObj != null) {
+                String nombrePieza = piezaObj.toString();
+                for (int i = 0; i < cmb_piezas.getItemCount(); i++) {
+                    PiezaInventario pieza = cmb_piezas.getItemAt(i);
+                    if (pieza != null && nombrePieza.equals(pieza.getNombre())) {
+                        cmb_piezas.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+            Object cantidadPiezaObj = jTable1.getColumnCount() > 8 ? jTable1.getValueAt(fila, 8) : null;
+            txt_cantidadpieza.setText(cantidadPiezaObj != null ? cantidadPiezaObj.toString() : "");
+
             cambiarAModoEdicion();
         }
     }//GEN-LAST:event_jTable1MouseClicked
@@ -497,7 +576,6 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private void bt_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editarActionPerformed
         if (txt_fechaequipo.getText().trim().isEmpty() ||
         txt_descripcionman.getText().trim().isEmpty() ||
-        txt_observaciones.getText().trim().isEmpty() ||
         cmb_tipomanequipo.getSelectedItem() == null ||
         cmb_equipos.getSelectedItem() == null ||
         cmb_estado.getSelectedItem() == null) {
@@ -564,6 +642,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 limpiarFormulario();
                 cargarTablaMantenimientos();
                 cargarComboEquipos();
+                cargarComboPiezas();
             } else {
                 JOptionPane.showMessageDialog(this, "❌ No se pudo editar el mantenimiento.");
             }
@@ -578,12 +657,17 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
+        if (this.jTextField1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un mantenimiento de la tabla para eliminar.");
+            return;
+        }
         Integer id_seleccionado = Integer.parseInt(this.jTextField1.getText());
         mantDao.eliminarMantenimiento(id_seleccionado);
         cambiarAModoNuevo();
         cargarTablaMantenimientos();
         this.limpiarFormulario();
         cargarComboEquipos();
+        cargarComboPiezas();
     }//GEN-LAST:event_bt_eliminarActionPerformed
 
     private void cmb_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_estadoActionPerformed
@@ -602,7 +686,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     }
 
     DefaultTableModel tableModel = new DefaultTableModel(
-        new String[]{"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo", "Estado"}, 0);
+        new String[]{"id", "Fecha", "Tipo", "Descripcion", "Observaciones", "Equipo", "Estado", "Repuesto usado", "Cant."}, 0);
 
     try {
         // Si es número -> buscar por ID
@@ -616,7 +700,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                 m.getDescripcion(),
                 m.getObservaciones(),
                 m.getEquipo() != null ? m.getEquipo().getNombre() : "",
-                m.getEquipo() != null ? m.getEquipo().getEstado() : ""
+                m.getEquipo() != null ? m.getEquipo().getEstado() : "",
+                m.getPiezaUsada() != null ? m.getPiezaUsada().getNombre() : "Sin repuesto",
+                m.getCantidadPiezaUsada() > 0 ? m.getCantidadPiezaUsada() : ""
             });
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró mantenimiento con ID " + id);
@@ -634,7 +720,9 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
                     m.getDescripcion(),
                     m.getObservaciones(),
                     m.getEquipo().getNombre(),
-                    m.getEquipo().getEstado()
+                    m.getEquipo().getEstado(),
+                    m.getPiezaUsada() != null ? m.getPiezaUsada().getNombre() : "Sin repuesto",
+                    m.getCantidadPiezaUsada() > 0 ? m.getCantidadPiezaUsada() : ""
                 });
                 encontrados++;
             }
@@ -678,6 +766,7 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_registrar;
     private javax.swing.JComboBox<String> cmb_equipos;
     private javax.swing.JComboBox<String> cmb_estado;
+    private javax.swing.JComboBox<PiezaInventario> cmb_piezas;
     private javax.swing.JComboBox<String> cmb_tipomanequipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -687,11 +776,14 @@ public class GuiMantenimientoEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txt_buscar;
+    private javax.swing.JTextField txt_cantidadpieza;
     private javax.swing.JTextField txt_descripcionman;
     private javax.swing.JTextField txt_fechaequipo;
     private javax.swing.JTextField txt_observaciones;
