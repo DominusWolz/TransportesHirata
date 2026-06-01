@@ -38,6 +38,7 @@ com\mycompany\transporteshirata\GUI\GuiRegistrarCamion.class
 com\mycompany\transporteshirata\GUI\GuiMantenimiento$2.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$2.class
 com\mycompany\transporteshirata\Logica\SoftwareEquipo.class
+com\mycompany\transporteshirata\GUI\GuiHistorialMantenimientoEquipos$1.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$7.class
 com\mycompany\transporteshirata\Datos\PiezaInventarioDao.class
 com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos$4.class
@@ -53,6 +54,7 @@ com\mycompany\transporteshirata\GUI\GuiMantenimientoEquipos.class
 com\mycompany\transporteshirata\GUI\GuiRegistrarEquipoOficina$6.class
 com\mycompany\transporteshirata\Logica\Camion.class
 com\mycompany\transporteshirata\GUI\GuiLogin$nombreConductor.class
+com\mycompany\transporteshirata\GUI\GuiHistorialMantenimientoEquipos.class
 com\mycompany\transporteshirata\GUI\GuiInventarioPiezas$2.class
 com\mycompany\transporteshirata\Datos\Conexion.class
 com\mycompany\transporteshirata\GUI\GuiHistorialMantenimiento.class
