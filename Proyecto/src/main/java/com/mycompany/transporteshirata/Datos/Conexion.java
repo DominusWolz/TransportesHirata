@@ -4,6 +4,7 @@
  */
 package com.mycompany.transporteshirata.Datos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,10 +45,22 @@ public class Conexion {
 
     private static Properties cargarConfig() {
         Properties config = new Properties();
-        try (FileInputStream fis = new FileInputStream(CONFIG_LOCAL)) {
-            config.load(fis);
-        } catch (IOException e) {
-            // Si no existe el archivo local, se usan variables de entorno o valores por defecto.
+        File[] ubicaciones = {
+            new File(CONFIG_LOCAL),
+            new File("Proyecto", CONFIG_LOCAL),
+            new File(System.getProperty("user.home"), CONFIG_LOCAL)
+        };
+
+        for (File archivo : ubicaciones) {
+            if (!archivo.isFile()) {
+                continue;
+            }
+            try (FileInputStream fis = new FileInputStream(archivo)) {
+                config.load(fis);
+                break;
+            } catch (IOException e) {
+                Mensajes.mostrarError("No se pudo leer la configuracion de BD: " + archivo.getAbsolutePath());
+            }
         }
         return config;
     }
@@ -115,6 +128,38 @@ public class Conexion {
                     + "CONSTRAINT fk_mantenimiento_camion FOREIGN KEY (idCamion) REFERENCES Camion(idCamion)"
                     + ")");
 
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS EquipoOficina ("
+                    + "idEquipo INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "nombre VARCHAR(100) NOT NULL,"
+                    + "tipo VARCHAR(50),"
+                    + "marca VARCHAR(50),"
+                    + "modelo VARCHAR(50),"
+                    + "identificador INT,"
+                    + "estado VARCHAR(30)"
+                    + ")");
+
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS MantenimientoEquipoOficina ("
+                    + "idMantenimiento INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "fecha DATE NOT NULL,"
+                    + "tipo VARCHAR(50) NOT NULL,"
+                    + "descripcion TEXT,"
+                    + "observaciones TEXT,"
+                    + "idEquipo INT NOT NULL,"
+                    + "CONSTRAINT fk_mantenimiento_equipo FOREIGN KEY (idEquipo) REFERENCES EquipoOficina(idEquipo) "
+                    + "ON UPDATE CASCADE ON DELETE RESTRICT"
+                    + ")");
+
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS SoftwareEquipo ("
+                    + "idSoftware INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "idEquipo INT NOT NULL,"
+                    + "nombreSoftware VARCHAR(100) NOT NULL,"
+                    + "version VARCHAR(50) NOT NULL,"
+                    + "fechaInstalacion DATE NOT NULL,"
+                    + "fechaActualizacion DATE,"
+                    + "observaciones VARCHAR(255),"
+                    + "CONSTRAINT fk_software_equipo FOREIGN KEY (idEquipo) REFERENCES EquipoOficina(idEquipo) ON DELETE CASCADE"
+                    + ")");
+
             st.executeUpdate("CREATE TABLE IF NOT EXISTS PiezaInventario ("
                     + "idPieza INT AUTO_INCREMENT PRIMARY KEY,"
                     + "nombre VARCHAR(100) NOT NULL UNIQUE,"
@@ -133,8 +178,24 @@ public class Conexion {
                     + "CONSTRAINT fk_mp_pieza FOREIGN KEY (idPieza) REFERENCES PiezaInventario(idPieza)"
                     + ")");
 
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS MantenimientoEquipoPieza ("
+                    + "idMantenimientoEquipoPieza INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "idMantenimientoEquipo INT NOT NULL,"
+                    + "idPieza INT NOT NULL,"
+                    + "cantidadUsada INT NOT NULL,"
+                    + "CONSTRAINT fk_mep_mantenimiento FOREIGN KEY (idMantenimientoEquipo) "
+                    + "REFERENCES MantenimientoEquipoOficina(idMantenimiento) ON DELETE CASCADE,"
+                    + "CONSTRAINT fk_mep_pieza FOREIGN KEY (idPieza) REFERENCES PiezaInventario(idPieza)"
+                    + ")");
+
             st.executeUpdate("INSERT IGNORE INTO Conductor (idConductor, rut, nombre, licencia, telefono, clave) "
                     + "VALUES (1, '10.000.000-8', 'Conductor Base', 'BASE-1', '99999999', 'base123')");
+
+            st.executeUpdate("INSERT IGNORE INTO EquipoOficina (idEquipo, nombre, tipo, marca, modelo, identificador, estado) "
+                    + "VALUES (1, 'Notebook Administracion', 'Notebook Oficina', 'Lenovo', 'ThinkPad E14', 1001, 'Disponible')");
+
+            st.executeUpdate("INSERT IGNORE INTO PiezaInventario (idPieza, nombre, descripcion, cantidad, stockMinimo, ubicacion) "
+                    + "VALUES (1, 'SSD 512GB', 'Unidad de estado solido para notebook o PC', 5, 2, 'Bodega TI')");
         }
 
         esquemaVerificado = true;

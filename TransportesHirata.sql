@@ -57,6 +57,29 @@ CREATE TABLE MantenimientoEquipoOficina (
     INDEX idx_idEquipo (idEquipo)
 );
 
+CREATE TABLE PiezaInventario (
+    idPieza INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(255),
+    cantidad INT NOT NULL DEFAULT 0,
+    stockMinimo INT NOT NULL DEFAULT 0,
+    ubicacion VARCHAR(100)
+);
+
+CREATE TABLE MantenimientoEquipoPieza (
+    idMantenimientoEquipoPieza INT AUTO_INCREMENT PRIMARY KEY,
+    idMantenimientoEquipo INT NOT NULL,
+    idPieza INT NOT NULL,
+    cantidadUsada INT NOT NULL,
+    CONSTRAINT fk_mep_mantenimiento FOREIGN KEY (idMantenimientoEquipo)
+        REFERENCES MantenimientoEquipoOficina(idMantenimiento)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_mep_pieza FOREIGN KEY (idPieza)
+        REFERENCES PiezaInventario(idPieza),
+    INDEX idx_idMantenimientoEquipo (idMantenimientoEquipo),
+    INDEX idx_idPieza (idPieza)
+);
+
 CREATE TABLE SoftwareEquipo (
     idSoftware         INT AUTO_INCREMENT PRIMARY KEY,
     idEquipo           INT          NOT NULL,
@@ -99,6 +122,18 @@ INSERT INTO MantenimientoEquipoOficina (fecha, tipo, descripcion, observaciones,
 ('2024-03-15', 'Preventivo', 'Limpieza de cabezales impresora',      'Toner al 30%',                   4),
 ('2024-04-05', 'Correctivo', 'Reparacion tarjeta madre',             'En espera de repuesto',          5),
 ('2024-04-18', 'Preventivo', 'Actualizacion de drivers y antivirus', NULL,                             3);
+
+INSERT INTO PiezaInventario (nombre, descripcion, cantidad, stockMinimo, ubicacion) VALUES
+('SSD 512GB', 'Unidad de estado solido para notebooks y PCs', 5, 2, 'Bodega TI'),
+('Memoria RAM DDR4 8GB', 'Modulo de memoria para notebook o desktop', 8, 3, 'Bodega TI'),
+('Teclado notebook HP', 'Repuesto de teclado para EliteBook', 2, 1, 'Bodega TI'),
+('Cable USB impresora', 'Cable USB tipo B para impresoras', 10, 4, 'Oficina soporte'),
+('Pasta termica', 'Pasta termica para mantenimiento preventivo', 6, 2, 'Kit tecnico');
+
+INSERT INTO MantenimientoEquipoPieza (idMantenimientoEquipo, idPieza, cantidadUsada) VALUES
+(2, 1, 1),
+(3, 5, 1),
+(5, 2, 1);
 
 INSERT INTO SoftwareEquipo (idEquipo, nombreSoftware, version, fechaInstalacion, fechaActualizacion, observaciones) VALUES
 (1, 'Microsoft Office',    '2021',  '2023-01-15', '2024-03-10', 'Licencia corporativa'),

@@ -4,7 +4,8 @@
  */
 package com.mycompany.transporteshirata.GUI;
 
-import com.mycompany.transporteshirata.Datos.MantenimientoDao;
+import com.mycompany.transporteshirata.Datos.EquipoOficinaDao;
+import com.mycompany.transporteshirata.Logica.EquipoOficina;
 import java.util.List;
 import javax.swing.JFrame;
 
@@ -21,23 +22,38 @@ public class Principal extends javax.swing.JFrame {
         openMenuItem.setVisible(false);
         openMenuItem1.setVisible(false);
         bt_mantenimiento.setVisible(false);
-        jMenuItem1.setVisible(false);
-        mostrarAlertaMantenimiento();
+        openMenuItem4.setText("Registrar hardware");
+        bt_conductor1.setText("Soporte TI");
+        openMenu5.setText("Mantenimiento hardware");
+        jMenuItem1.setText("Historial hardware");
+        jMenuItem1.setVisible(true);
+        jMenuItem3.setText("Software equipos");
+        bt_inventarioPiezas.setText("Inventario de repuestos");
+        mostrarAlertaEquipos();
     }
 
-    private void mostrarAlertaMantenimiento() {
-        MantenimientoDao mDao = new MantenimientoDao();
-        List<String> pendientes = mDao.obtenerCamionesPendientesMantenimiento();
-        if (!pendientes.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("ALERTA DE MANTENIMIENTO\n");
-            sb.append("Los siguientes camiones requieren mantencion urgente:\n\n");
-            for (String linea : pendientes) {
-                sb.append("  - ").append(linea).append("\n");
+    private void mostrarAlertaEquipos() {
+        EquipoOficinaDao equipoDao = new EquipoOficinaDao();
+        List<EquipoOficina> equipos = equipoDao.listarEquipos();
+        StringBuilder detalles = new StringBuilder();
+        for (EquipoOficina equipo : equipos) {
+            String estado = equipo.getEstado();
+            if (estado != null && !"Disponible".equalsIgnoreCase(estado)) {
+                detalles.append("  - ")
+                        .append(equipo.getNombre())
+                        .append(" (")
+                        .append(estado)
+                        .append(")\n");
             }
-            sb.append("\nPor favor programe el mantenimiento a la brevedad.");
-            javax.swing.JOptionPane.showMessageDialog(this, sb.toString(),
-                    "Alerta de Mantenimiento", javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+        if (detalles.length() > 0) {
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("ALERTA DE HARDWARE\n");
+            mensaje.append("Los siguientes equipos requieren seguimiento:\n\n");
+            mensaje.append(detalles);
+            mensaje.append("\nRevise el historial o registre el mantenimiento correspondiente.");
+            javax.swing.JOptionPane.showMessageDialog(this, mensaje.toString(),
+                    "Alerta de hardware", javax.swing.JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -165,9 +181,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
-        GuiHistorialMantenimiento hist = new GuiHistorialMantenimiento();
-        desktopPane.add(hist);
-        hist.setVisible(true);
+        abrirInternalFrame(new GuiHistorialMantenimientoEquipos(), "Error al abrir Historial de hardware");
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
